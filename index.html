@@ -130,7 +130,7 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 
 <section class="hero">
   <h1>Build your next career move.</h1>
-  <p>Create a professional resume, upload CVs, generate cover letters, and download directly as PDF or Word (.docx).</p>
+  <p>Create a professional resume, upload CVs, generate cover letters, and prepare for interviews using your actual career experience.</p>
 </section>
 
 <nav class="tabs">
@@ -302,13 +302,13 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 <main class="layout hidden" id="interviewPage">
 <section class="panel" id="interviewPanel" style="grid-column: 1 / -1;">
   <div class="panel-head">
-    <h2>Interview Preparation Center</h2>
-    <span class="muted">Practice and track progress</span>
+    <h2>Interview Preparation Center (Aung Zar Ni Win - Sales Management Experience)</h2>
+    <span class="muted">Tailored with 11+ years Myanmar Carlsberg & Sales Manager experience</span>
   </div>
   <div class="panel-body">
     <div class="interview-intro">
       <strong>Prepare. Practice. Perform.</strong><br>
-      <span>အင်တာဗျူးမဖြေခင် မေးခွန်းတွေကို ကြိုတင်လေ့ကျင့်ပါ။ နမူနာအဖြေကို အလွတ်ကျက်မယ့်အစား ကိုယ့်အတွေ့အကြုံအစစ်နဲ့ ပြန်လည်ပြင်ဆင်ပါ။</span>
+      <span>ဤနေရာတွင် Myanmar Carlsberg ၌ ၁၁ နှစ်တာ လုပ်ကိုင်ခဲ့သော Channel Management, Sales Planning, Market Expansion အတွေ့အကြုံများနှင့် Sales Manager တာဝန်များကို အခြေခံထားသော အဓိကအင်တာဗျူးမေးခွန်းနှင့် နမူနာအဖြေများ ပါဝင်သည်။</span>
     </div>
 
     <div class="two">
@@ -322,10 +322,10 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
     </div>
 
     <div class="question-nav" id="interviewNav">
-      <button class="btn active" data-category="common">Common Questions</button>
-      <button class="btn" data-category="sales">Sales Manager</button>
-      <button class="btn" data-category="behavior">Behavioral</button>
-      <button class="btn" data-category="salary">Salary & Closing</button>
+      <button class="btn active" data-category="experience">Experience & Background</button>
+      <button class="btn" data-category="channel">Channel & Sales Planning</button>
+      <button class="btn" data-category="expansion">Market Expansion</button>
+      <button class="btn" data-category="leadership">Team Leadership & KPIs</button>
     </div>
 
     <div class="progress"><div id="interviewBar"></div></div>
@@ -334,10 +334,9 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 
     <div class="interview-card">
       <h3>Interview Day Checklist</h3>
-      <label class="checkrow"><input type="checkbox"> Research the company and its products</label>
-      <label class="checkrow"><input type="checkbox"> Review the job description and key requirements</label>
-      <label class="checkrow"><input type="checkbox"> Prepare three real achievement examples</label>
-      <label class="checkrow"><input type="checkbox"> Prepare your salary expectation</label>
+      <label class="checkrow"><input type="checkbox"> Highlight 11 years of structural FMCG sales and commercial leadership at Myanmar Carlsberg</label>
+      <label class="checkrow"><input type="checkbox"> Prepare specific metrics on distribution coverage and revenue growth</label>
+      <label class="checkrow"><input type="checkbox"> Demonstrate strong understanding of local market dynamics in Yangon/Myanmar</label>
     </div>
   </div>
 </section>
@@ -392,7 +391,7 @@ const defaults={
 };
 
 let state=JSON.parse(JSON.stringify(defaults));
-let interviewCategory="common";
+let interviewCategory="experience";
 let isDark=false;
 
 function toggleDarkMode(){
@@ -588,12 +587,8 @@ function exportJSON(){
  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 
-// Download PDF (Triggers Print dialog optimized for PDF save)
-function exportPDF(){
- window.print();
-}
+function exportPDF(){ window.print(); }
 
-// Download Word (.docx)
 function exportWord(){
  const content = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Resume</title></head><body>` + $("#resumeContent").innerHTML + `</body></html>`;
  const converted = htmlDocx.asBlob(content);
@@ -605,7 +600,6 @@ function exportWord(){
  setTimeout(()=>URL.revokeObjectURL(url), 1000);
 }
 
-// CV Upload and Parse Feature
 $("#cvUploadInput").addEventListener("change",async e=>{
  const file=e.target.files[0];
  if(!file)return;
@@ -621,20 +615,18 @@ $("#cvUploadInput").addEventListener("change",async e=>{
   alert("CV Uploaded and Parsed Successfully!");
   $("#saveStatus").textContent="Uploaded & Parsed ✓";
  }catch(err){
-  alert("Could not parse file. Please upload a valid JSON resume or text file.");
+  alert("Could not parse file.");
  }
  e.target.value="";
 });
 
-// AI Polish Summary Simulation
 function aiImproveSummary(){
- state.summary=`Strategic and high-performing ${state.role} with extensive leadership experience in channel management, sales planning, and market expansion. Proven ability to optimize distribution networks, lead cross-functional teams, and consistently exceed revenue targets.`;
+ state.summary=`Strategic and high-performing ${state.role} with over 11 years of extensive experience at Myanmar Carlsberg, specializing in channel management, sales planning, and market expansion. Proven track record of driving revenue growth and optimizing distribution networks.`;
  syncForm();
  renderPreview();
  alert("Professional summary polished successfully!");
 }
 
-// Cover Letter Generator
 function generateCoverLetter(){
  const company=$("#clCompany").value||"Target Company";
  const manager=$("#clManager" ).value||"Hiring Manager";
@@ -658,22 +650,44 @@ function showPage(page){
  window.scrollTo({top:0,behavior:"smooth"});
 }
 
-// Interview library
+// Tailored Interview Question Library based on user experience
 const interviewData={
- common:[
+ experience:[
   {
-   q:"Tell me about yourself.",
-   tip:"Use Present → Past → Strengths → Future.",
-   en:"I am a sales professional with over 11 years of experience in channel management, sales planning, and market expansion at Myanmar Carlsberg.",
-   my:"ကျွန်တော်ဟာ Myanmar Carlsberg မှာ Channel Management၊ Sales Planning နဲ့ Market Expansion ဘက်နဲ့ ပတ်သက်ပြီး ၁၁ နှစ်ကျော် အတွေ့အကြုံရှိတဲ့ Sales Professional တစ်ယောက်ဖြစ်ပါတယ်။"
+   q:"Tell me about yourself and your professional background.",
+   tip:"Focus on your 11 years at Myanmar Carlsberg, your progression in sales planning/channel management, and your current Sales Manager expertise.",
+   en:"I am an accomplished Sales Manager with over 11 years of rich commercial experience at Myanmar Carlsberg, where I spearheaded channel management, sales planning, and market expansion initiatives. I have a proven track record of optimizing distribution channels, setting data-driven KPIs, and coaching high-performing teams to achieve sustainable revenue growth.",
+   my:"ကျွန်တော်ဟာ Myanmar Carlsberg မှာ Channel Management၊ Sales Planning နဲ့ Market Expansion ဘက်နဲ့ ပတ်သက်ပြီး ၁၁ နှစ်ကျော် အတွေ့အကြုံရှိတဲ့ Sales Professional တစ်ယောက်ဖြစ်ပါတယ်။ အဓိကအားဖြင့် Distribution Channels တွေကို မြှင့်တင်ခြင်း၊ Data-Driven KPIs တွေ ချမှတ်ခြင်းနဲ့ Team ကို ဦးဆောင်ပြီး ဝင်ငွေတိုးတက်အောင် လုပ်ဆောင်ခဲ့တဲ့ အတွေ့အကြုံတွေ ရှိပါတယ်။"
+  },
+  {
+   q:"Why are you transitioning from your long tenure at Myanmar Carlsberg to new opportunities?",
+   tip:"Express gratitude for your long foundational experience and frame the move as seeking broader commercial leadership responsibilities.",
+   en:"My 11 years at Myanmar Carlsberg provided me with a strong foundation in FMCG channel management and corporate strategy. Having achieved major milestones there, I am now looking to bring my expertise to dynamic new sectors, taking on broader commercial leadership and scaling business operations.",
+   my:"Myanmar Carlsberg မှာ ၁၁ နှစ်တာ လုပ်ကိုင်ခွင့်ရခဲ့လို့ FMCG Channel Management နဲ့ Corporate Strategy ပိုင်းမှာ အတွေ့အကြုံကောင်းတွေ အများကြီး ရရှိခဲ့ပါတယ်။ အခုတော့ အဲဒီအတွေ့အကြုံတွေကို အခြေခံပြီး လုပ်ငန်းကဏ္ဍအသစ်တွေမှာ ပိုမိုကျယ်ပြန့်တဲ့ Commercial Leadership တာဝန်တွေကို ထမ်းဆောင်ဖို့ ရည်ရွယ်ချက်နဲ့ ပြောင်းလဲလာတာ ဖြစ်ပါတယ်။"
   }
  ],
- sales:[
+ channel:[
   {
-   q:"How do you achieve monthly sales targets?",
-   tip:"Discuss target breakdown, territory planning, daily execution and KPIs.",
-   en:"I break monthly targets into weekly and daily objectives, allocating them by territory, channel, and customer potential.",
-   my:"လစဉ် Target ကို Weekly နဲ့ Daily Target တွေအဖြစ် ခွဲပြီး Territory နဲ့ Channel အလိုက် ခွဲဝေဆောင်ရွက်ပါတယ်။"
+   q:"How do you manage distribution channels and execute sales planning?",
+   tip:"Explain route-to-market strategies, distributor relationship management, and aligning weekly/monthly targets.",
+   en:"Based on my extensive background in channel management, I focus on route-to-market efficiency, distributor alignment, and numeric distribution. I break down annual business goals into actionable monthly, weekly, and daily channel targets, closely monitoring coverage, strike rate, and drop size.",
+   my:"Channel Management အတွေ့အကြုံအရ Route-to-Market Efficiency၊ Distributor Alignment နဲ့ Numeric Distribution တွေကို အဓိကထား လုပ်ဆောင်ပါတယ်။ နှစ်ပတ်လည် ရည်မှန်းချက်တွေကို လစဉ်၊ ሳምንတ္စဥ် Target တွေအဖြစ် ခွဲဝေပြီး Coverage၊ Strike Rate နဲ့ Drop Size တွေကို စနစ်တကျ စောင့်ကြည့် အကောင်အထည်ဖော်ပါတယ်။"
+  }
+ ],
+ expansion:[
+  {
+   q:"How do you approach market expansion and driving new territory growth?",
+   tip:"Discuss outlet mapping, identifying white spaces, distributor partnerships, and localized execution.",
+   en:"Market expansion requires rigorous outlet mapping, identifying untapped white spaces, and building strong local distributor partnerships. During my tenure, I analyzed regional potential, optimized sales routes, and rolled out targeted execution plans to ensure rapid yet sustainable product availability.",
+   my:"Market Expansion လုပ်တဲ့အခါ Outlet Mapping လုပ်ခြင်း၊ White Space တွေကို ရှာဖွေခြင်းနဲ့ ဒေသခံ Distributor တွေနဲ့ ခိုင်မာတဲ့ ပူးပေါင်းဆောင်ရွက်မှု တည်ဆောက်ခြင်းတို့ကို လုပ်ဆောင်ပါတယ်။ ဒေသတွင်း အလားအလာတွေကို စစ်ဆေးပြီး Sales Routes တွေကို ပြန်လည်ပြင်ဆင်ကာ ပစ္စည်းရောက်ရှိမှုကို အမြန်ဆုံးနဲ့ ထိရောက်စွာ ဖန်တီးပေးပါတယ်။"
+  }
+ ],
+ leadership:[
+  {
+   q:"How do you set KPIs and manage underperforming sales teams?",
+   tip:"Talk about supportive field coaching, transparent KPI reviews, and root-cause problem solving.",
+   en:"I believe in transparent, KPI-driven management combined with active field coaching. When a salesperson underperforms, I analyze data gaps—whether in activity, strike rate, or coverage—accompany them on field visits to diagnose the root cause, and provide actionable coaching to secure recovery.",
+   my:"KPI အခြေပြု စီမံခန့်ခွဲမှုနဲ့အတူ Field Coaching ကို အဓိကထားပါတယ်။ Performance ကျဆင်းတဲ့အခါ Activity နဲ့ Coverage ဘက်မှာလားဆိုတာကို Data အရ သုံးသပ်ပြီး Field Visit အတူလိုက်ကာ အကြောင်းရင်းကို ရှာဖွေကာ ပြန်လည်တိုးတက်လာအောင် ကူညီပေးပါတယ်။"
   }
  ]
 };
