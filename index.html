@@ -1,0 +1,411 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#151b2b">
+<title>Professional Resume Builder Pro</title>
+<style>
+:root{--ink:#172033;--muted:#687386;--gold:#c7a45a;--line:#e1e5ec;--bg:#f3f5f9;--white:#fff;--navy:#151b2b}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--bg)}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.topbar{background:var(--navy);color:white;padding:17px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:19px;letter-spacing:.2px}
+.brand span{color:#e0bf78}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:white;border-radius:8px;padding:10px 13px;font-weight:700;font-size:12px;color:var(--ink)}
+.btn.primary{background:var(--gold);border-color:var(--gold);color:#171717}
+.btn.dark{background:var(--navy);color:white;border-color:var(--navy)}
+.btn.danger{color:#b42318}
+.hero{padding:25px 24px 12px;max-width:1500px;margin:auto}
+.hero h1{font-size:27px;margin:0 0 7px}
+.hero p{color:var(--muted);margin:0;line-height:1.6;font-size:14px}
+.layout{display:grid;grid-template-columns:minmax(330px, .92fr) minmax(0,1.08fr);gap:20px;max-width:1500px;margin:auto;padding:15px 24px 35px;align-items:start}
+.panel{background:white;border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:0}
+.panel-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.panel-head h2{font-size:16px;margin:0}
+.panel-body{padding:17px}
+.section{border:1px solid var(--line);border-radius:9px;margin-bottom:12px;overflow:hidden}
+.section summary{padding:14px;font-weight:700;font-size:13px;cursor:pointer;background:#fafbfc}
+.section-content{padding:14px;display:grid;gap:12px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label{font-size:12px;font-weight:700;color:#414c60}
+.field input,.field textarea,.field select{width:100%;padding:10px 11px;border:1px solid #d9dfe8;border-radius:7px;background:white;color:var(--ink);outline:none;min-width:0}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 2px #c7a45a22}
+.field textarea{min-height:80px;resize:vertical;line-height:1.5}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.hint{font-size:11px;color:var(--muted);line-height:1.5}
+.list-item{border:1px solid var(--line);padding:12px;border-radius:8px;display:grid;gap:11px}
+.list-title{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:700}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap}
+.preview-panel{position:sticky;top:12px}
+.preview-toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.preview-toolbar select{max-width:155px;padding:9px;border:1px solid var(--line);border-radius:7px;background:white;font-size:12px}
+.preview-wrap{padding:20px;background:#e9edf4;overflow:auto;min-height:400px}
+.resume{background:white;width:100%;max-width:794px;min-height:900px;margin:auto;box-shadow:0 3px 18px #10182812;color:#263246;font-size:11px;line-height:1.6;overflow-wrap:anywhere}
+.resume-inner{padding:42px 45px}
+.resume-header{border-bottom:2px solid var(--accent,#c7a45a);padding-bottom:18px;margin-bottom:20px}
+.resume-name{font-size:30px;font-weight:800;line-height:1.15;letter-spacing:-.6px;margin:0 0 5px}
+.resume-role{font-size:13px;font-weight:700;color:var(--accent,#a17a2b);margin-bottom:11px}
+.contact{display:flex;flex-wrap:wrap;gap:5px 14px;color:#586477;font-size:10px}
+.resume-section{margin:0 0 19px;break-inside:avoid}
+.resume-section h3{font-size:12px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid #dfe4ec;padding-bottom:6px;margin:0 0 10px;color:#263246}
+.resume-section p{margin:0;white-space:pre-line}
+.entry{margin-bottom:12px;break-inside:avoid}
+.entry-top{display:flex;justify-content:space-between;gap:10px;font-weight:700;font-size:11px}
+.entry-sub{color:#657185;font-size:10px;margin:2px 0 5px}
+.entry ul{padding-left:16px;margin:5px 0}
+.entry li{margin-bottom:3px}
+.skills{display:flex;flex-wrap:wrap;gap:6px}
+.skill{background:#f1f3f6;border-radius:4px;padding:4px 7px;font-size:10px}
+.resume.executive .resume-header{text-align:center}
+.resume.executive .contact{justify-content:center}
+.resume.minimal .resume-header{border:0}
+.resume.minimal .resume-name{font-weight:500}
+.resume.creative .resume-header{background:#f6f1e7;padding:24px;border-radius:6px}
+.resume.ats .resume-inner{padding:35px 38px}
+.resume.ats .resume-name{font-size:25px}
+.resume.ats .resume-section h3{letter-spacing:.2px}
+.empty{color:var(--muted);font-size:12px;padding:8px 0}
+.atsbox{background:#fafbfc;border:1px solid var(--line);border-radius:8px;padding:13px;margin-top:12px}
+.atsbox h3{font-size:13px;margin:0 0 10px}
+.checkrow{display:flex;gap:8px;font-size:12px;padding:6px 0;line-height:1.5}
+.checkrow input{accent-color:#a17a2b}
+.progress{height:5px;background:#e9edf3;border-radius:9px;overflow:hidden;margin:9px 0}
+.progress div{height:100%;background:#b08a40;width:0;transition:width .2s}
+footer{text-align:center;padding:20px;color:var(--muted);font-size:11px}
+.mobile-tabs{display:none}
+@media(max-width:900px){
+ .layout{grid-template-columns:1fr;padding:12px}
+ .hero{padding:20px 15px 8px}
+ .hero h1{font-size:23px}
+ .preview-panel{position:static}
+ .topbar{padding:15px}
+ .preview-wrap{padding:12px}
+ .resume-inner{padding:25px}
+ .resume-name{font-size:25px}
+ .mobile-tabs{display:flex;gap:8px;padding:10px 12px;background:white;border-bottom:1px solid var(--line)}
+ .mobile-tabs button{flex:1}
+ body.edit-mode #previewPanel{display:none}
+ body.preview-mode #editorPanel{display:none}
+}
+@media(max-width:480px){
+ .two{grid-template-columns:1fr}
+ .three{grid-template-columns:1fr 1fr}
+ .resume-inner{padding:19px}
+ .resume-name{font-size:23px}
+ .entry-top{flex-direction:column;gap:0}
+ .top-actions .btn{padding:9px}
+}
+@media print{
+ @page{size:A4;margin:0}
+ body{background:white!important}
+ .topbar,.hero,#editorPanel,.preview-panel>.panel-head,.preview-toolbar,.mobile-tabs,footer{display:none!important}
+ .layout{display:block!important;padding:0!important;margin:0!important}
+ .panel{border:0!important;overflow:visible!important}
+ #previewPanel{display:block!important;position:static!important}
+ .preview-wrap{padding:0!important;background:white!important;overflow:visible!important}
+ .resume{width:210mm!important;max-width:none!important;min-height:0!important;margin:0!important;box-shadow:none!important;font-size:10pt}
+ .resume-inner{padding:16mm 17mm!important}
+ .resume-name{font-size:26pt}
+ .resume-section{break-inside:avoid}
+ .entry{break-inside:avoid}
+ .skill{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">PROFESSIONAL <span>RESUME BUILDER</span></div>
+  <div class="top-actions">
+    <button class="btn" onclick="newResume()">New Resume</button>
+    <button class="btn" onclick="saveResume()">Save</button>
+    <button class="btn" onclick="exportJSON()">Export JSON</button>
+    <button class="btn primary" onclick="window.print()">Print / Save PDF</button>
+  </div>
+</header>
+<section class="hero">
+  <h1>Build your next career move.</h1>
+  <p>Create a professional resume, preview it instantly, and export a print-ready PDF. Your resume data stays in this browser by default.</p>
+</section>
+<div class="mobile-tabs">
+  <button class="btn" onclick="setMobileMode('edit')">Edit Resume</button>
+  <button class="btn primary" onclick="setMobileMode('preview')">Live Preview</button>
+</div>
+<main class="layout">
+<section class="panel" id="editorPanel">
+  <div class="panel-head">
+    <h2>Resume Editor</h2>
+    <span class="hint" id="saveStatus">Not saved yet</span>
+  </div>
+  <div class="panel-body">
+    <div class="section">
+      <details open>
+        <summary>01 · Personal Information</summary>
+        <div class="section-content">
+          <div class="field"><label>Full Name *</label><input data-key="name" placeholder="e.g. Alex Morgan"></div>
+          <div class="two">
+            <div class="field"><label>Professional Title</label><input data-key="role" placeholder="e.g. Sales Manager"></div>
+            <div class="field"><label>Email</label><input data-key="email" type="email" placeholder="alex@example.com"></div>
+          </div>
+          <div class="two">
+            <div class="field"><label>Phone</label><input data-key="phone" placeholder="+95 ..."></div>
+            <div class="field"><label>Location</label><input data-key="location" placeholder="Yangon, Myanmar"></div>
+          </div>
+          <div class="two">
+            <div class="field"><label>LinkedIn URL</label><input data-key="linkedin" placeholder="linkedin.com/in/..."></div>
+            <div class="field"><label>Portfolio / Website</label><input data-key="website" placeholder="yourwebsite.com"></div>
+          </div>
+          <div class="field"><label>Professional Summary</label><textarea data-key="summary" placeholder="Summarize your experience, strengths, and career value in 3–5 sentences."></textarea></div>
+        </div>
+      </details>
+    </div>
+    <div class="section">
+      <details open>
+        <summary>02 · Work Experience</summary>
+        <div class="section-content">
+          <div id="experienceList"></div>
+          <button class="btn dark" onclick="addEntry('experience')">+ Add Experience</button>
+          <p class="hint">Describe achievements with action verbs and measurable results where possible.</p>
+        </div>
+      </details>
+    </div>
+    <div class="section">
+      <details>
+        <summary>03 · Education</summary>
+        <div class="section-content">
+          <div id="educationList"></div>
+          <button class="btn dark" onclick="addEntry('education')">+ Add Education</button>
+        </div>
+      </details>
+    </div>
+    <div class="section">
+      <details>
+        <summary>04 · Skills & Languages</summary>
+        <div class="section-content">
+          <div class="field"><label>Skills (separate with commas)</label><textarea data-key="skills" placeholder="Sales Strategy, Leadership, Excel, Forecasting"></textarea></div>
+          <div class="field"><label>Languages (separate with commas)</label><input data-key="languages" placeholder="English, Burmese"></div>
+        </div>
+      </details>
+    </div>
+    <div class="section">
+      <details>
+        <summary>05 · Certifications & Projects</summary>
+        <div class="section-content">
+          <div class="field"><label>Certifications</label><textarea data-key="certifications" placeholder="Certification name — Issuing organization — Year"></textarea></div>
+          <div class="field"><label>Projects / Key Achievements</label><textarea data-key="projects" placeholder="Project name — your contribution and measurable result"></textarea></div>
+        </div>
+      </details>
+    </div>
+    <div class="section">
+      <details>
+        <summary>06 · Template & Formatting</summary>
+        <div class="section-content">
+          <div class="two">
+            <div class="field"><label>Template</label>
+              <select id="template">
+                <option value="modern">Modern</option>
+                <option value="executive">Executive</option>
+                <option value="minimal">Minimal</option>
+                <option value="corporate">Corporate</option>
+                <option value="creative">Creative</option>
+                <option value="ats">ATS-Friendly</option>
+              </select>
+            </div>
+            <div class="field"><label>Accent Color</label>
+              <select id="accent">
+                <option value="#c7a45a">Gold</option>
+                <option value="#234e70">Professional Navy</option>
+                <option value="#356859">Forest Green</option>
+                <option value="#6b4c8a">Royal Purple</option>
+                <option value="#333333">Charcoal</option>
+              </select>
+            </div>
+          </div>
+          <div class="field"><label>Font</label>
+            <select id="font">
+              <option value="Arial,Helvetica,sans-serif">Arial</option>
+              <option value="Georgia,serif">Georgia</option>
+              <option value="'Trebuchet MS',sans-serif">Trebuchet MS</option>
+            </select>
+          </div>
+        </div>
+      </details>
+    </div>
+    <div class="toolbar">
+      <button class="btn primary" onclick="saveResume()">Save Resume</button>
+      <button class="btn" onclick="loadResume()">Load Saved Resume</button>
+      <button class="btn" onclick="window.print()">Export PDF</button>
+    </div>
+    <div class="atsbox">
+      <h3>ATS Readiness Checklist</h3>
+      <div class="progress"><div id="atsBar"></div></div>
+      <div id="atsScore" class="hint">Complete your resume to see the checklist.</div>
+      <div id="atsChecks"></div>
+      <p class="hint">This is a basic formatting and completeness checklist, not a guarantee of passing any employer's ATS.</p>
+    </div>
+  </div>
+</section>
+<section class="panel preview-panel" id="previewPanel">
+  <div class="panel-head">
+    <h2>Live Resume Preview</h2>
+    <div class="preview-toolbar">
+      <button class="btn" onclick="exportJSON()">JSON</button>
+      <button class="btn primary" onclick="window.print()">Save PDF</button>
+    </div>
+  </div>
+  <div class="preview-wrap">
+    <article class="resume modern" id="resumePreview">
+      <div class="resume-inner" id="resumeContent"></div>
+    </article>
+  </div>
+</section>
+</main>
+<footer>Professional Resume Builder Pro · Browser-based · No account required</footer>
+<input type="file" id="jsonFile" accept=".json,application/json" hidden>
+<script>
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+let state={name:"Alex Morgan",role:"Sales Manager",email:"alex@example.com",phone:"+95 9 000 000 000",location:"Yangon, Myanmar",linkedin:"",website:"",summary:"Results-driven professional with experience in sales execution, customer relationship management, team leadership, and business growth. Skilled at translating business objectives into actionable plans and measurable outcomes.",skills:"Sales Strategy, Team Leadership, Business Development, Forecasting, Negotiation, Excel, Customer Relationship Management",languages:"English, Burmese",certifications:"",projects:"",experience:[{title:"Sales Manager",company:"ABC Company",location:"Yangon",start:"2023",end:"Present",details:"Led sales execution and account management across assigned territories.\nDeveloped customer plans and monitored sales KPIs to identify growth opportunities.\nCoached team members and improved execution through regular performance reviews."}],education:[{degree:"Bachelor's Degree",school:"University Name",location:"Myanmar",start:"2003",end:"2007",details:"Relevant coursework or academic achievement"}]};
+let idCounter=0;
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function lines(v){return String(v||"").split(/\n/).map(x=>x.trim()).filter(Boolean);}
+function makeField(label,key,value,placeholder=""){
+return `<div class="field"><label>${label}</label><input data-entry-key="${key}" value="${esc(value)}" placeholder="${esc(placeholder)}"></div>`;
+}
+function makeTextarea(label,key,value,placeholder=""){
+return `<div class="field"><label>${label}</label><textarea data-entry-key="${key}" placeholder="${esc(placeholder)}">${esc(value)}</textarea></div>`;
+}
+function renderLists(){
+$("#experienceList").innerHTML=state.experience.map((e,i)=>`
+<div class="list-item">
+<div class="list-title"><span>Experience ${i+1}</span><button class="btn danger" onclick="removeEntry('experience',${i})">Remove</button></div>
+${makeField("Job Title","title",e.title,"Sales Manager")}
+${makeField("Company","company",e.company,"Company name")}
+<div class="two">${makeField("Location","location",e.location,"City, Country")}${makeField("Start Date","start",e.start,"2022")}</div>
+<div class="two">${makeField("End Date","end",e.end,"Present") }<div class="field"><label>Entry Order</label><div class="toolbar"><button class="btn" onclick="moveEntry('experience',${i},-1)">↑</button><button class="btn" onclick="moveEntry('experience',${i},1)">↓</button></div></div></div>
+${makeTextarea("Responsibilities & Achievements (one per line)","details",e.details,"Led a team of 10...\nIncreased sales by 15%...")}
+</div>`).join("")||'<div class="empty">No work experience added yet.</div>';
+$("#educationList").innerHTML=state.education.map((e,i)=>`
+<div class="list-item">
+<div class="list-title"><span>Education ${i+1}</span><button class="btn danger" onclick="removeEntry('education',${i})">Remove</button></div>
+${makeField("Degree / Qualification","degree",e.degree,"Bachelor's Degree")}
+${makeField("Institution","school",e.school,"University name")}
+<div class="two">${makeField("Location","location",e.location,"City")}${makeField("Start Year","start",e.start,"2018")}</div>
+<div class="two">${makeField("End Year","end",e.end,"2022")}<div class="field"><label>Entry Order</label><div class="toolbar"><button class="btn" onclick="moveEntry('education',${i},-1)">↑</button><button class="btn" onclick="moveEntry('education',${i},1)">↓</button></div></div></div>
+${makeTextarea("Details","details",e.details,"Relevant achievements or coursework")}
+</div>`).join("")||'<div class="empty">No education added yet.</div>';
+}
+function addEntry(type){
+state[type].push(type==="experience"?{title:"",company:"",location:"",start:"",end:"",details:""}:{degree:"",school:"",location:"",start:"",end:"",details:""});
+renderLists();renderPreview();bindDynamicInputs();
+}
+function removeEntry(type,i){state[type].splice(i,1);renderLists();renderPreview();bindDynamicInputs();}
+function moveEntry(type,i,d){let j=i+d;if(j<0||j>=state[type].length)return;[state[type][i],state[type][j]]=[state[type][j],state[type][i]];renderLists();renderPreview();bindDynamicInputs();}
+function bindDynamicInputs(){
+$$("[data-entry-key]").forEach(el=>{el.oninput=()=>{const card=el.closest(".list-item");const cards=[...el.parentElement.parentElement.parentElement.parentElement.children];let index=[...card.parentElement.children].indexOf(card);let type=card.parentElement.id==="experienceList"?"experience":"education";state[type][index][el.dataset.entryKey]=el.value;renderPreview();updateATS();};});
+}
+function section(title,body){return body?`<section class="resume-section"><h3>${title}</h3>${body}</section>`:"";}
+function renderEntries(type){
+return state[type].map(e=>{
+let title=type==="experience"?e.title:e.degree;
+let company=type==="experience"?e.company:e.school;
+let period=[e.start,e.end].filter(Boolean).join(" – ");
+let subtitle=[company,e.location].filter(Boolean).join(" · ");
+let bullets=lines(e.details);
+return `<div class="entry"><div class="entry-top"><span>${esc(title)}</span><span>${esc(period)}</span></div><div class="entry-sub">${esc(subtitle)}</div>${bullets.length?`<ul>${bullets.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}</div>`;
+}).join("");
+}
+function renderPreview(){
+let p=state;
+let contacts=[p.email,p.phone,p.location,p.linkedin,p.website].filter(Boolean);
+let skillList=p.skills.split(",").map(x=>x.trim()).filter(Boolean);
+let langs=p.languages.split(",").map(x=>x.trim()).filter(Boolean);
+let content=`
+<header class="resume-header">
+<h1 class="resume-name">${esc(p.name||"Your Name")}</h1>
+<div class="resume-role">${esc(p.role||"Professional Title")}</div>
+<div class="contact">${contacts.map(x=>`<span>${esc(x)}</span>`).join("")}</div>
+</header>
+${section("Professional Summary",p.summary?`<p>${esc(p.summary)}</p>`:"")}
+${section("Work Experience",renderEntries("experience"))}
+${section("Education",renderEntries("education"))}
+${section("Core Skills",skillList.length?`<div class="skills">${skillList.map(x=>`<span class="skill">${esc(x)}</span>`).join("")}</div>`:"")}
+${section("Languages",langs.length?`<p>${langs.map(esc).join(" · ")}</p>`:"")}
+${section("Certifications",lines(p.certifications).length?`<ul>${lines(p.certifications).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"")}
+${section("Projects & Key Achievements",lines(p.projects).length?`<ul>${lines(p.projects).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"")}
+`;
+$("#resumeContent").innerHTML=content;
+$("#resumePreview").className="resume "+$("#template").value;
+$("#resumePreview").style.setProperty("--accent",$("#accent").value);
+$("#resumePreview").style.fontFamily=$("#font").value;
+updateATS();
+}
+function updateATS(){
+let checks=[
+["Full name",!!state.name.trim()],
+["Professional summary",state.summary.trim().length>=40],
+["Contact information",!!(state.email.trim()||state.phone.trim())],
+["Work experience",state.experience.some(e=>e.title.trim()&&e.company.trim())],
+["Education",state.education.some(e=>e.degree.trim()&&e.school.trim())],
+["Relevant skills",state.skills.split(",").filter(x=>x.trim()).length>=3],
+["Achievement details",state.experience.some(e=>lines(e.details).length>=2)],
+["Clear professional title",!!state.role.trim()],
+["Valid email format",!state.email.trim()||/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email)]
+];
+let score=checks.filter(x=>x[1]).length;
+$("#atsBar").style.width=(score/checks.length*100)+"%";
+$("#atsScore").textContent=`${score} of ${checks.length} checklist items completed`;
+$("#atsChecks").innerHTML=checks.map(([name,ok])=>`<label class="checkrow"><input type="checkbox" disabled ${ok?"checked":""}><span>${esc(name)}</span><span style="margin-left:auto;color:${ok?"#26734d":"#8992a1"}">${ok?"Complete":"To review"}</span></label>`).join("");
+}
+function syncForm(){
+$$("[data-key]").forEach(el=>{el.value=state[el.dataset.key]??"";el.oninput=()=>{state[el.dataset.key]=el.value;renderPreview();};});
+}
+function saveResume(){
+try{localStorage.setItem("professionalResumeBuilder",JSON.stringify(state));$("#saveStatus").textContent="Saved locally ✓";}catch(e){alert("Could not save. Browser storage may be unavailable or full.");}
+}
+function loadResume(){
+try{
+let raw=localStorage.getItem("professionalResumeBuilder");
+if(!raw){alert("No saved resume was found in this browser.");return;}
+let parsed=JSON.parse(raw);
+if(!parsed||typeof parsed!=="object"||!Array.isArray(parsed.experience)||!Array.isArray(parsed.education))throw Error("Invalid resume data");
+state={...state,...parsed};
+syncForm();renderLists();bindDynamicInputs();renderPreview();$("#saveStatus").textContent="Loaded saved resume";
+}catch(e){alert("Could not load saved resume.");}
+}
+function newResume(){
+if(!confirm("Start a new blank resume? Save or export your current resume first if you want to keep it."))return;
+state={name:"",role:"",email:"",phone:"",location:"",linkedin:"",website:"",summary:"",skills:"",languages:"",certifications:"",projects:"",experience:[],education:[]};
+syncForm();renderLists();bindDynamicInputs();renderPreview();$("#saveStatus").textContent="New resume";
+}
+function exportJSON(){
+const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+const url=URL.createObjectURL(blob);const a=document.createElement("a");
+a.href=url;a.download="professional-resume.json";a.click();URL.revokeObjectURL(url);
+}
+$("#jsonFile").addEventListener("change",async e=>{
+const file=e.target.files[0];if(!file)return;
+try{
+const parsed=JSON.parse(await file.text());
+if(!parsed||typeof parsed!=="object"||Array.isArray(parsed)||!Array.isArray(parsed.experience)||!Array.isArray(parsed.education))throw Error("Invalid structure");
+if(!confirm("Import this resume and replace the current editor data?"))return;
+const defaults={name:"",role:"",email:"",phone:"",location:"",linkedin:"",website:"",summary:"",skills:"",languages:"",certifications:"",projects:"",experience:[],education:[]};
+state={...defaults,...parsed};
+syncForm();renderLists();bindDynamicInputs();renderPreview();$("#saveStatus").textContent="Imported JSON";
+}catch(err){alert("Invalid resume JSON. Please select a valid file exported by this app.");}
+e.target.value="";
+});
+function importJSON(){ $("#jsonFile").click(); }
+$("#template").addEventListener("change",renderPreview);
+$("#accent").addEventListener("change",renderPreview);
+$("#font").addEventListener("change",renderPreview);
+function setMobileMode(mode){document.body.classList.toggle("edit-mode",mode==="edit");document.body.classList.toggle("preview-mode",mode==="preview");}
+syncForm();renderLists();bindDynamicInputs();renderPreview();
+</script>
+</body>
+</html>
