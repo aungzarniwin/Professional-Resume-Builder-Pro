@@ -7,6 +7,8 @@
 <title>Professional Resume Builder Pro</title>
 <!-- html-docx-js for Word Export -->
 <script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.js"></script>
+<!-- mammoth.js for DOCX Import / Reading -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 <style>
 :root{--navy:#172033;--gold:#c7a45a;--bg:#f3f5f9;--line:#e0e5ed;--muted:#687386;--white:#fff;--green:#277653;--card-bg:#fff}
 .dark-mode{--navy:#e2e8f0;--gold:#d4af37;--bg:#0f172a;--line:#334155;--muted:#94a3b8;--white:#1e293b;--card-bg:#1e293b}
@@ -133,7 +135,7 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 
 <section class="hero">
   <h1>Build your next career move.</h1>
-  <p>Create a professional resume with photo support, generate cover letters, and master job interviews.</p>
+  <p>Create a professional resume, upload CV files (.docx, .json, .txt), generate cover letters, and master interviews.</p>
 </section>
 
 <nav class="tabs">
@@ -153,9 +155,9 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 
     <!-- CV Upload Box -->
     <div class="upload-box">
-      <h3>📁 Upload Existing CV / Resume</h3>
-      <p class="muted">Upload your existing CV file (JSON format or text content) to auto-fill.</p>
-      <input type="file" id="cvUploadInput" accept=".json,.txt" style="margin-top:8px; width:100%;">
+      <h3>📁 Upload Existing CV / Resume (.docx, .json, .txt)</h3>
+      <p class="muted">Upload your existing Word Document (.docx), JSON, or text file to auto-parse and fill details.</p>
+      <input type="file" id="cvUploadInput" accept=".docx,.json,.txt" style="margin-top:8px; width:100%;">
     </div>
 
     <div class="section"><details open>
@@ -632,22 +634,43 @@ function exportWord(){
  setTimeout(()=>URL.revokeObjectURL(url), 1000);
 }
 
-$("#cvUploadInput").addEventListener("change",async e=>{
+// Advanced CV File Reader (.docx, .json, .txt)
+$("#cvUploadInput").addEventListener("change", async e=>{
  const file=e.target.files[0];
  if(!file)return;
+
  try{
-  const text=await file.text();
-  if(file.name.endsWith(".json")){
-   const data=JSON.parse(text);
-   state={...JSON.parse(JSON.stringify(defaults)),...data};
-  } else {
-   state.summary=text.slice(0, 300);
+  if(file.name.endsWith(".docx")){
+   // Read DOCX using mammoth.js
+   const arrayBuffer = await file.arrayBuffer();
+   const result = await mammoth.extractRawText({arrayBuffer: arrayBuffer});
+   const extractedText = result.value || "";
+   
+   if(extractedText.trim()){
+    state.summary = extractedText.slice(0, 500);
+    alert("Word Document (.docx) content extracted into Professional Summary successfully!");
+   } else {
+    alert("No plain text found inside this DOCX file.");
+   }
+  } 
+  else if(file.name.endsWith(".json")){
+   const text = await file.text();
+   const data = JSON.parse(text);
+   state = {...JSON.parse(JSON.stringify(defaults)), ...data};
+   alert("JSON Resume imported successfully!");
+  } 
+  else {
+   const text = await file.text();
+   state.summary = text.slice(0, 500);
+   alert("Text file content imported successfully!");
   }
-  syncForm();renderLists();renderPreview();
-  alert("CV Uploaded and Parsed Successfully!");
+
+  syncForm();
+  renderLists();
+  renderPreview();
   $("#saveStatus").textContent="Uploaded & Parsed ✓";
  }catch(err){
-  alert("Could not parse file.");
+  alert("Could not parse file. Please upload a valid .docx, .json, or .txt file.");
  }
  e.target.value="";
 });
@@ -670,7 +693,6 @@ function generateCoverLetter(){
 function showPage(page){
  const isResume=page==="resume";
  const isCover=page==="cover";
- const isInterview=page="interview"; // fixed assignment syntax
 
  $("#resumePage").classList.toggle("hidden",!isResume);
  $("#coverPage").classList.toggle("hidden",!isCover);
@@ -720,20 +742,20 @@ const interviewData={
    tip:"Talk about supportive field coaching, transparent KPI reviews, and root-cause problem solving.",
    en:"I believe in transparent, KPI-driven management combined with active field coaching. When a salesperson underperforms, I analyze data gaps—whether in activity, strike rate, or coverage—accompany them on field visits to diagnose the root cause, and provide actionable coaching to secure recovery.",
    my:"KPI အခြေပြု စီမံခန့်ခွဲမှုနဲ့အတူ Field Coaching ကို အဓိကထားပါတယ်။ Performance ကျဆင်းတဲ့အခါ Activity နဲ့ Coverage ဘက်မှာလားဆိုတာကို Data အရ သုံးသပ်ပြီး Field Visit အတူလိုက်ကာ အကြောင်းရင်းကို ရှာဖွေကာ ပြန်လည်တိုးတက်လာအောင် ကူညီပေးပါတယ်။"
-  },
+  }
  ],
  behavioral:[
   {
    q:"Describe a time when you faced a major sales target shortfall. How did you resolve it?",
    tip:"Use the STAR method (Situation, Task, Action, Result) focusing on tactical corrective measures.",
    en:"In a previous quarter, shifting market conditions led to a temporary dip in target achievement. I immediately conducted a gap analysis by territory and sales channel, identified underperforming product lines and routes, and introduced an incentive-driven push with daily tracking. Within three weeks, we recovered the gap and achieved 105% of the quarterly objective.",
-   my:"တစ်ကြိမ်မှာ ဈေးကွက်အခြေအနေကြောင့် Target လျော့နည်းသွားတာမျိုး ကြုံဖူးပါတယ်။ ချက်ချင်းပဲ Territory နဲ့ Channel အလိုက် Gap Analysis လုပ်ခဲ့ပြီး အားနည်းနေတဲ့ Route တွေကို ဖော်ထုတ်ကာ Incentive အစီအစဉ်နဲ့ Daily Tracking ကို အကောင်အထည်ဖော်ခဲ့ပါတယ်။ သုံးပတ်အတွင်းမှာ Target ကို အမီလိုက်နိုင်ခဲ့ပြီး ရည်မှန်းချက်ရဲ့ ၁၀၅ ရာခိုင်နှုန်းအထိ ကျော်လွန်အောင် ಸಾಧနိုင်ခဲ့ပါတယ်။"
+   my:"တစ်ကြိမ်မှာ ဈေးကွက်အခြေအနေကြောင့် Target လျော့နည်းသွားတာမျိုး ကြုံဖူးပါတယ်။ ချက်ချင်းပဲ Territory နဲ့ Channel အလိုက် Gap Analysis လုပ်ခဲ့ပြီး အားနည်းနေတဲ့ Route တွေကို ဖော်ထုတ်ကာ Incentive အစီအစဉ်နဲ့ Daily Tracking ကို အကောင်အထည်ဖော်ခဲ့ပါတယ်။ သုံးပတ်အတွင်းမှာ Target ကို အမီလိုက်နိုင်ခဲ့ပြီး ရည်မှန်းချက်ရဲ့ ၁၀၅ ရာခိုင်နှုန်းအထိ ကျော်လွန်အောင် ဆောင်ရွက်နိုင်ခဲ့ပါတယ်။"
   },
   {
    q:"How do you handle conflict or resistance from key distributors or team members?",
    tip:"Emphasize active listening, mutual benefit negotiation, and collaborative problem-solving.",
    en:"When dealing with distributor resistance or internal conflict, I prioritize active listening to understand their core concerns. I then focus on win-win solutions, aligning commercial goals with their business viability, and setting clear, transparent guidelines to move forward amicably.",
-   my:"Distributor တွေနဲ့ သို့မဟုတ် အသင်းသားတွေနဲ့ သဘောထားကွဲလွဲမှုဖြစ်တဲ့အခါ သူတို့ရဲ့ အဓိကအခက်အခဲကို အရင်ဆုံး သေချာနားထောင်ပါတယ်။ နှစ်ဖစူစလုံးအတွက် အကျိုးရှိမယ့် Win-Win Solution ကို ရှာဖွေဆွေးနွေးပြီး ရှင်းလင်းတဲ့ လမ်းညွှန်ချက်တွေနဲ့ အတူတကွ ပူးပေါင်းဆောင်ရွက်ပါတယ်။"
+   my:"Distributor တွေနဲ့ သို့မဟုတ် အသင်းသားတွေနဲ့ သဘောထားကွဲလွဲမှုဖြစ်တဲ့အခါ သူတို့ရဲ့ အဓိကအခက်အခဲကို အရင်ဆုံး သေချာနားထောင်ပါတယ်။ နှစ်ဖက်စလုံးအတွက် အကျိုးရှိမယ့် Win-Win Solution ကို ရှာဖွေဆွေးနွေးပြီး ရှင်းလင်းတဲ့ လမ်းညွှန်ချက်တွေနဲ့ အတူတကွ ပူးပေါင်းဆောင်ရွက်ပါတယ်။"
   }
  ],
  salary:[
