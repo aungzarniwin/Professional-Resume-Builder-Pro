@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#151b2b">
 <title>Professional Resume Builder Pro</title>
+<!-- html-docx-js for Word Export -->
+<script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.js"></script>
 <style>
 :root{--navy:#172033;--gold:#c7a45a;--bg:#f3f5f9;--line:#e0e5ed;--muted:#687386;--white:#fff;--green:#277653;--card-bg:#fff}
 .dark-mode{--navy:#e2e8f0;--gold:#d4af37;--bg:#0f172a;--line:#334155;--muted:#94a3b8;--white:#1e293b;--card-bg:#1e293b}
@@ -102,7 +104,7 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 @media print{
  @page{size:A4;margin:0}
  body{background:white!important;color:#000!important}
- .topbar,.hero,.tabs,#editorPanel,#interviewPanel,#coverLetterPanel,footer,.preview-panel>.panel-head{display:none!important}
+ .topbar,.hero,.tabs,#editorPanel,#interviewPanel,#coverPage,footer,.preview-panel>.panel-head{display:none!important}
  .layout{display:block!important;padding:0!important;margin:0!important}
  #previewPanel{display:block!important;border:0!important;position:static!important}
  .preview-wrap{padding:0!important;background:white!important;overflow:visible!important}
@@ -121,13 +123,14 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
     <button class="btn" onclick="toggleDarkMode()">🌓 Dark Mode</button>
     <button class="btn" onclick="newResume()">New</button>
     <button class="btn" onclick="saveResume()">Save</button>
-    <button class="btn primary" onclick="window.print()">Save PDF</button>
+    <button class="btn primary" onclick="exportPDF()">📥 Download PDF</button>
+    <button class="btn dark" onclick="exportWord()">📄 Download Word</button>
   </div>
 </header>
 
 <section class="hero">
   <h1>Build your next career move.</h1>
-  <p>Create a professional resume, upload existing CVs for parsing, generate cover letters, and prepare for interviews.</p>
+  <p>Create a professional resume, upload CVs, generate cover letters, and download directly as PDF or Word (.docx).</p>
 </section>
 
 <nav class="tabs">
@@ -148,7 +151,7 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
     <!-- CV Upload Box -->
     <div class="upload-box">
       <h3>📁 Upload Existing CV / Resume</h3>
-      <p class="muted">Upload your existing CV file (JSON format or text content) to auto-fill the editor.</p>
+      <p class="muted">Upload your existing CV file (JSON format or text content) to auto-fill.</p>
       <input type="file" id="cvUploadInput" accept=".json,.txt" style="margin-top:8px; width:100%;">
     </div>
 
@@ -258,7 +261,10 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 <section class="panel preview-panel" id="previewPanel">
   <div class="panel-head">
     <h2>Live Resume Preview</h2>
-    <button class="btn primary" onclick="window.print()">Print / PDF</button>
+    <div style="display:flex; gap:6px;">
+      <button class="btn primary" onclick="exportPDF()">PDF</button>
+      <button class="btn dark" onclick="exportWord()">Word</button>
+    </div>
   </div>
   <div class="preview-wrap">
     <article class="resume modern" id="resumePreview">
@@ -273,7 +279,9 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 <section class="panel" style="grid-column: 1 / -1;">
   <div class="panel-head">
     <h2>Cover Letter Generator</h2>
-    <button class="btn primary" onclick="window.print()">Print / PDF Cover Letter</button>
+    <div style="display:flex; gap:6px;">
+      <button class="btn primary" onclick="window.print()">Print / PDF</button>
+    </div>
   </div>
   <div class="panel-body">
     <div class="two" style="margin-bottom:12px;">
@@ -580,6 +588,23 @@ function exportJSON(){
  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 
+// Download PDF (Triggers Print dialog optimized for PDF save)
+function exportPDF(){
+ window.print();
+}
+
+// Download Word (.docx)
+function exportWord(){
+ const content = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Resume</title></head><body>` + $("#resumeContent").innerHTML + `</body></html>`;
+ const converted = htmlDocx.asBlob(content);
+ const url = URL.createObjectURL(converted);
+ const a = document.createElement("a");
+ a.href = url;
+ a.download = (state.name ? state.name.replace(/\s+/g, '_') : "resume") + ".docx";
+ a.click();
+ setTimeout(()=>URL.revokeObjectURL(url), 1000);
+}
+
 // CV Upload and Parse Feature
 $("#cvUploadInput").addEventListener("change",async e=>{
  const file=e.target.files[0];
@@ -590,7 +615,6 @@ $("#cvUploadInput").addEventListener("change",async e=>{
    const data=JSON.parse(text);
    state={...JSON.parse(JSON.stringify(defaults)),...data};
   } else {
-   // Simple text parsing fallback
    state.summary=text.slice(0, 300);
   }
   syncForm();renderLists();renderPreview();
@@ -630,7 +654,7 @@ function showPage(page){
 
  $("#tabResume").classList.toggle("active",isResume);
  $("#tabCover").classList.toggle("active",isCover);
- $("#tabInterview").classList.toggle("active",isInterview);
+ $("#tabInterview").classList.toggle("active",!isInterview);
  window.scrollTo({top:0,behavior:"smooth"});
 }
 
