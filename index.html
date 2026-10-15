@@ -324,15 +324,50 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 const $=s=>document.querySelector(s); const $$=s=>[...document.querySelectorAll(s)];
 
 const defaults={
- name:"",role:"",email:"",phone:"",location:"",linkedin:"",website:"",
- summary:"",skills:"",languages:"",certifications:"",projects:"",
- experience:[],education:[]
+ name:"Aung Zar Ni Win",
+ role:"Sales Manager",
+ email:"aungzarniwin@example.com",
+ phone:"+95 9 ...",
+ location:"Yangon, Myanmar",
+ linkedin:"linkedin.com/in/aungzarniwin",
+ website:"",
+ summary:"Results-driven Sales Manager with over 11 years of extensive experience at Myanmar Carlsberg, specializing in channel management, sales planning, market expansion, and team leadership. Proven track record of driving revenue growth, optimizing distribution networks, and building high-performing sales teams.",
+ skills:"Sales Management, Channel Management, Sales Planning, Market Expansion, Key Account Management, Team Leadership, Distribution Optimization, KPI Tracking, Data Analysis, Strategic Negotiation",
+ languages:"English, Burmese",
+ certifications:"Sales Leadership & Channel Management Excellence — Myanmar Carlsberg",
+ projects:"Market Expansion & Distribution Network Upgrade — Expanded distribution coverage across key regions, significantly improving retail presence and sales volume.",
+ experience:[
+  {
+   title:"Sales Manager",
+   company:"Automobile / Commercial Company",
+   location:"Yangon",
+   start:"2024",
+   end:"Present",
+   details:"Lead sales strategy, market penetration, and customer relationship management to drive revenue growth and expand market share.\nManage sales teams, set performance KPIs, and conduct regular field coaching to ensure target achievement."
+  },
+  {
+   title:"Channel Management & Sales Planning Roles",
+   company:"Myanmar Carlsberg",
+   location:"Yangon",
+   start:"2013",
+   end:"2024",
+   details:"Spent 11 progressive years managing sales planning, channel strategy, market expansion, and key accounts.\nOptimized distribution channels, improved route-to-market efficiency, and successfully launched new market expansion initiatives.\nLed cross-functional sales operations and coached sales teams to consistently surpass quarterly and annual revenue targets."
+  }
+ ],
+ education:[
+  {
+   degree:"Bachelor's Degree",
+   school:"University in Myanmar",
+   location:"Yangon",
+   start:"2008",
+   end:"2012",
+   details:"Focused on business foundation, management principles, and communication."
+  }
+ ]
 };
 
 let state=JSON.parse(JSON.stringify(defaults));
 let interviewCategory="common";
-let interviewDone=new Set();
-let practiceAnswers={};
 
 function esc(v){
  return String(v??"").replace(/[&<>"']/g,c=>({
@@ -554,22 +589,22 @@ const interviewData={
   {
    q:"Tell me about yourself.",
    tip:"Use Present → Past → Strengths → Future. Aim for 60–90 seconds.",
-   en:"I am a sales professional with experience in sales execution, customer management, and team leadership. In my previous roles, I focused on achieving targets, improving distribution, managing key accounts, and developing sales teams. I am now looking for an opportunity to use my experience to deliver sustainable business growth.",
-   my:"ကျွန်တော်ဟာ Sales Execution၊ Customer Management နဲ့ Team Leadership အတွေ့အကြုံရှိတဲ့ Sales Professional တစ်ယောက်ဖြစ်ပါတယ်။ ယခင်အလုပ်တွေမှာ Sales Target ပြည့်မီရေး၊ Distribution တိုးတက်ရေး၊ Key Account စီမံခန့်ခွဲရေးနဲ့ Sales Team ဖွံ့ဖြိုးတိုးတက်ရေးတို့ကို အဓိကလုပ်ဆောင်ခဲ့ပါတယ်။ အခုတော့ မိမိအတွေ့အကြုံကို အသုံးချပြီး လုပ်ငန်းတိုးတက်မှုကို ဖန်တီးပေးနိုင်မယ့် အခွင့်အလမ်းကို ရှာဖွေနေပါတယ်။"
+   en:"I am a sales professional with over 11 years of experience in channel management, sales planning, and market expansion at Myanmar Carlsberg. In my previous roles, I focused on achieving targets, improving distribution, managing key accounts, and developing sales teams. I am now looking for an opportunity to use my experience to deliver sustainable business growth.",
+   my:"ကျွန်တော်ဟာ Myanmar Carlsberg မှာ Channel Management၊ Sales Planning နဲ့ Market Expansion ဘက်နဲ့ ပတ်သက်ပြီး ၁၁ နှစ်ကျော် အတွေ့အကြုံရှိတဲ့ Sales Professional တစ်ယောက်ဖြစ်ပါတယ်။ ယခင်အလုပ်တွေမှာ Sales Target ပြည့်မီရေး၊ Distribution တိုးတက်ရေး၊ Key Account စီမံခန့်ခွဲရေးနဲ့ Sales Team ဖွံ့ဖြိုးတိုးတက်ရေးတို့ကို အဓိကလုပ်ဆောင်ခဲ့ပါတယ်။"
   },
   {
    q:"Why should we hire you?",
    tip:"Connect your strengths to the role. Use evidence rather than unsupported claims.",
-   en:"I combine practical sales execution, team management, customer relationship skills, and KPI-driven decision-making. I focus on identifying performance gaps, developing action plans, and following through to achieve business objectives.",
-   my:"ကျွန်တော့်မှာ Sales Execution၊ Team Management၊ Customer Relationship နဲ့ KPI အခြေပြု ဆုံးဖြတ်ချက်ချနိုင်မှုတို့ ရှိပါတယ်။ Performance Gap တွေကို ရှာဖွေပြီး Action Plan ချမှတ်ကာ ရည်မှန်းချက်ပြည့်မီအောင် အကောင်အထည်ဖော်နိုင်တာက ကျွန်တော့်ရဲ့ အားသာချက်ဖြစ်ပါတယ်။"
+   en:"I bring 11 years of corporate sales leadership experience, practical channel management, market expansion expertise, and KPI-driven decision-making. I focus on identifying performance gaps, developing action plans, and following through to achieve business objectives.",
+   my:"ကျွန်တော့်မှာ कर्ल्सဘတ် (Myanmar Carlsberg) မှာ ၁၁ နှစ်တာ လုပ်ကိုင်ခဲ့တဲ့ Corporate Sales Leadership အတွေ့အကြုံ၊ Channel Management၊ Market Expansion ကျွမ်းကျင်မှုနဲ့ KPI အခြေပြု ဆုံးဖြတ်ချက်ချနိုင်မှုတို့ ရှိပါတယ်။"
   }
  ],
  sales:[
   {
    q:"How do you achieve monthly sales targets?",
    tip:"Discuss target breakdown, territory planning, daily execution, KPIs and corrective action.",
-   en:"I break the monthly target into weekly and daily objectives and allocate targets by territory, salesperson, and customer potential. I monitor sales achievement, coverage, strike rate, productivity, distribution, and receivables. When gaps appear, I identify root causes and agree on corrective actions with the team.",
-   my:"လစဉ် Target ကို Weekly နဲ့ Daily Target တွေအဖြစ် ခွဲပြီး Territory၊ Salesperson နဲ့ Customer Potential အလိုက် ခွဲဝေပါတယ်။ Sales Achievement၊ Coverage၊ Strike Rate၊ Productivity၊ Distribution နဲ့ Receivables တို့ကို စောင့်ကြည့်ပါတယ်။ Target Gap တွေ့ရင် အကြောင်းရင်းကို ရှာဖွေပြီး Team နဲ့အတူ Corrective Action ချမှတ်ပါတယ်။"
+   en:"Drawing from my extensive background in sales planning and channel management, I break monthly targets into weekly and daily objectives, allocating them by territory, channel, and customer potential.",
+   my:"Sales Planning နဲ့ Channel Management အတွေ့အကြုံတွေအရ လစဉ် Target ကို Weekly နဲ့ Daily Target တွေအဖြစ် ခွဲပြီး Territory နဲ့ Channel အလိုက် ခွဲဝေဆောင်ရွက်ပါတယ်။"
   }
  ]
 };
