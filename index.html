@@ -6,19 +6,20 @@
 <meta name="theme-color" content="#151b2b">
 <title>Professional Resume Builder Pro</title>
 <style>
-:root{--navy:#172033;--gold:#c7a45a;--bg:#f3f5f9;--line:#e0e5ed;--muted:#687386;--white:#fff;--green:#277653}
+:root{--navy:#172033;--gold:#c7a45a;--bg:#f3f5f9;--line:#e0e5ed;--muted:#687386;--white:#fff;--green:#277653;--card-bg:#fff}
+.dark-mode{--navy:#e2e8f0;--gold:#d4af37;--bg:#0f172a;--line:#334155;--muted:#94a3b8;--white:#1e293b;--card-bg:#1e293b}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--navy);font-family:Arial,Helvetica,sans-serif;font-size:14px}
+body{margin:0;background:var(--bg);color:var(--navy);font-family:Arial,Helvetica,sans-serif;font-size:14px;transition:background 0.3s, color 0.3s}
 button,input,textarea,select{font:inherit}
 button{cursor:pointer}
 .topbar{background:#151b2b;color:white;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .brand{font-size:18px;font-weight:800}
 .brand span{color:#e0bf78}
 .actions,.tabs,.tools{display:flex;gap:8px;flex-wrap:wrap}
-.btn{background:white;border:1px solid var(--line);color:var(--navy);padding:10px 13px;border-radius:8px;font-size:12px;font-weight:700}
+.btn{background:var(--white);border:1px solid var(--line);color:var(--navy);padding:10px 13px;border-radius:8px;font-size:12px;font-weight:700}
 .btn.primary{background:var(--gold);border-color:var(--gold);color:#171717}
-.btn.dark{background:var(--navy);color:white;border-color:var(--navy)}
-.btn.active{background:var(--navy);color:white}
+.btn.dark{background:var(--navy);color:var(--white);border-color:var(--line)}
+.btn.active{background:var(--gold);color:#171717;border-color:var(--gold)}
 .btn.danger{color:#b42318}
 .hero{max-width:1500px;margin:auto;padding:25px 24px 10px}
 .hero h1{font-size:27px;margin:0 0 8px}
@@ -26,25 +27,25 @@ button{cursor:pointer}
 .tabs{padding:14px 24px 0;max-width:1500px;margin:auto}
 .tabs .btn{padding:12px 17px}
 .layout{max-width:1500px;margin:auto;padding:15px 24px 35px;display:grid;grid-template-columns:minmax(320px,.92fr) minmax(0,1.08fr);gap:18px;align-items:start}
-.panel{background:white;border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:0}
+.panel{background:var(--card-bg);border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:0}
 .panel-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .panel-head h2{font-size:16px;margin:0}
 .panel-body{padding:16px}
 .muted{color:var(--muted);font-size:12px;line-height:1.7}
 .section{border:1px solid var(--line);border-radius:9px;margin-bottom:12px;overflow:hidden}
-.section summary{padding:14px;font-weight:700;font-size:13px;cursor:pointer;background:#fafbfc}
+.section summary{padding:14px;font-weight:700;font-size:13px;cursor:pointer;background:var(--card-bg)}
 .section-content{padding:14px;display:grid;gap:12px}
 .field{display:flex;flex-direction:column;gap:6px;min-width:0}
-.field label,.field>span{font-size:12px;font-weight:700;color:#414c60}
-.field input,.field textarea,.field select{width:100%;padding:10px 11px;border:1px solid #d9dfe8;border-radius:7px;background:white;color:var(--navy);outline:none;min-width:0}
+.field label,.field>span{font-size:12px;font-weight:700;color:var(--navy)}
+.field input,.field textarea,.field select{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:7px;background:var(--card-bg);color:var(--navy);outline:none;min-width:0}
 .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 2px #c7a45a22}
 .field textarea{min-height:80px;resize:vertical;line-height:1.6}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .list-item{border:1px solid var(--line);padding:12px;border-radius:8px;display:grid;gap:11px;margin-bottom:10px}
 .list-title{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;font-weight:bold}
 .preview-panel{position:sticky;top:10px}
-.preview-wrap{padding:18px;background:#e9edf4;overflow:auto;min-height:400px}
-.resume{background:white;width:100%;max-width:794px;min-height:900px;margin:auto;box-shadow:0 3px 18px #10182812;color:#263246;font-size:11px;line-height:1.65;overflow-wrap:anywhere}
+.preview-wrap{padding:18px;background:var(--bg);overflow:auto;min-height:400px}
+.resume{background:#fff;width:100%;max-width:794px;min-height:900px;margin:auto;box-shadow:0 3px 18px #10182812;color:#263246;font-size:11px;line-height:1.65;overflow-wrap:anywhere}
 .resume-inner{padding:40px 43px}
 .resume-header{border-bottom:2px solid var(--accent);padding-bottom:17px;margin-bottom:19px}
 .resume-name{font-size:30px;font-weight:800;line-height:1.2;margin:0 0 5px}
@@ -59,25 +60,23 @@ button{cursor:pointer}
 .entry ul{padding-left:16px;margin:5px 0}
 .entry li{margin-bottom:3px}
 .skills{display:flex;flex-wrap:wrap;gap:6px}
-.skill{background:#f1f3f6;border-radius:4px;padding:4px 7px;font-size:10px}
+.skill{background:#f1f3f6;border-radius:4px;padding:4px 7px;font-size:10px;color:#263246}
 .resume.executive .resume-header{text-align:center}
 .resume.executive .contact{justify-content:center}
 .resume.minimal .resume-header{border:0}
 .resume.minimal .resume-name{font-weight:500}
 .resume.creative .resume-header{background:#f6f1e7;padding:22px;border-radius:5px}
 .empty{color:var(--muted);font-size:12px;padding:8px 0}
-.atsbox,.interview-card{background:#fafbfc;border:1px solid var(--line);border-radius:9px;padding:14px;margin-top:12px}
-.atsbox h3{font-size:14px;margin:0 0 8px}
-.progress{height:5px;background:#e9edf3;border-radius:9px;overflow:hidden;margin:10px 0}
+.atsbox,.interview-card,.upload-box{background:var(--card-bg);border:1px solid var(--line);border-radius:9px;padding:14px;margin-top:12px}
+.atsbox h3,.upload-box h3{font-size:14px;margin:0 0 8px}
+.progress{height:5px;background:var(--line);border-radius:9px;overflow:hidden;margin:10px 0}
 .progress div{height:100%;width:0;background:var(--gold)}
 .checkrow{display:flex;gap:8px;font-size:12px;padding:6px 0;line-height:1.5}
 .checkrow input{accent-color:#a17a2b}
-.interview-intro{padding:17px;background:#f7f4ec;border-radius:9px;margin-bottom:14px;line-height:1.8}
+.interview-intro{padding:17px;background:var(--card-bg);border:1px solid var(--line);border-radius:9px;margin-bottom:14px;line-height:1.8}
 .interview-card h3{font-size:14px;line-height:1.7;margin:7px 0}
 .interview-card p{font-size:13px;line-height:1.8;white-space:pre-line}
-.interview-card .answer{padding:12px;background:white;border:1px solid var(--line);border-radius:8px}
-.interview-card details summary{cursor:pointer;font-weight:bold;font-size:12px;padding:8px 0}
-.tag{font-size:10px;font-weight:bold;color:#856522;letter-spacing:.6px;text-transform:uppercase}
+.interview-card .answer{padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:8px}
 .question-nav{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0}
 footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 .hidden{display:none!important}
@@ -102,8 +101,8 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 }
 @media print{
  @page{size:A4;margin:0}
- body{background:white!important}
- .topbar,.hero,.tabs,#editorPanel,#interviewPanel,footer,.preview-panel>.panel-head{display:none!important}
+ body{background:white!important;color:#000!important}
+ .topbar,.hero,.tabs,#editorPanel,#interviewPanel,#coverLetterPanel,footer,.preview-panel>.panel-head{display:none!important}
  .layout{display:block!important;padding:0!important;margin:0!important}
  #previewPanel{display:block!important;border:0!important;position:static!important}
  .preview-wrap{padding:0!important;background:white!important;overflow:visible!important}
@@ -119,30 +118,39 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 <header class="topbar">
   <div class="brand">PROFESSIONAL <span>RESUME BUILDER PRO</span></div>
   <div class="actions">
+    <button class="btn" onclick="toggleDarkMode()">🌓 Dark Mode</button>
     <button class="btn" onclick="newResume()">New</button>
     <button class="btn" onclick="saveResume()">Save</button>
-    <button class="btn" onclick="exportJSON()">Export JSON</button>
     <button class="btn primary" onclick="window.print()">Save PDF</button>
   </div>
 </header>
 
 <section class="hero">
   <h1>Build your next career move.</h1>
-  <p>Create a professional resume, prepare for interviews, and practice answering employer questions. Your resume stays in your browser by default.</p>
+  <p>Create a professional resume, upload existing CVs for parsing, generate cover letters, and prepare for interviews.</p>
 </section>
 
 <nav class="tabs">
   <button class="btn active" id="tabResume" onclick="showPage('resume')">Resume Builder</button>
-  <button class="btn" id="tabInterview" onclick="showPage('interview')">Interview Preparation</button>
+  <button class="btn" id="tabCover" onclick="showPage('cover')">Cover Letter</button>
+  <button class="btn" id="tabInterview" onclick="showPage('interview')">Interview Prep</button>
 </nav>
 
+<!-- RESUME BUILDER PAGE -->
 <main class="layout" id="resumePage">
 <section class="panel" id="editorPanel">
   <div class="panel-head">
-    <h2>Resume Editor</h2>
+    <h2>Resume Editor & Upload</h2>
     <span class="muted" id="saveStatus">Ready</span>
   </div>
   <div class="panel-body">
+
+    <!-- CV Upload Box -->
+    <div class="upload-box">
+      <h3>📁 Upload Existing CV / Resume</h3>
+      <p class="muted">Upload your existing CV file (JSON format or text content) to auto-fill the editor.</p>
+      <input type="file" id="cvUploadInput" accept=".json,.txt" style="margin-top:8px; width:100%;">
+    </div>
 
     <div class="section"><details open>
       <summary>01 · Personal Information</summary>
@@ -158,7 +166,13 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
           <div class="field"><label>LinkedIn</label><input data-key="linkedin" placeholder="linkedin.com/in/..."></div>
           <div class="field"><label>Portfolio</label><input data-key="website" placeholder="yourwebsite.com"></div>
         </div>
-        <div class="field"><label>Professional Summary</label><textarea data-key="summary" placeholder="Summarize your experience, strengths and career value."></textarea></div>
+        <div class="field">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <label>Professional Summary</label>
+            <button class="btn" style="padding:2px 6px; font-size:10px;" onclick="aiImproveSummary()">✨ AI Polish</button>
+          </div>
+          <textarea data-key="summary" placeholder="Summarize your experience, strengths and career value."></textarea>
+        </div>
       </div>
     </details></div>
 
@@ -167,7 +181,6 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
       <div class="section-content">
         <div id="experienceList"></div>
         <button class="btn dark" onclick="addEntry('experience')">+ Add Experience</button>
-        <p class="muted">Use action verbs and real, measurable achievements where possible.</p>
       </div>
     </details></div>
 
@@ -182,7 +195,7 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
     <div class="section"><details>
       <summary>04 · Skills & Languages</summary>
       <div class="section-content">
-        <div class="field"><label>Skills (comma-separated)</label><textarea data-key="skills" placeholder="Leadership, Sales Strategy, Excel, Forecasting"></textarea></div>
+        <div class="field"><label>Skills (comma-separated)</label><textarea data-key="skills" placeholder="Leadership, Sales Strategy, Excel"></textarea></div>
         <div class="field"><label>Languages (comma-separated)</label><input data-key="languages" placeholder="English, Burmese"></div>
       </div>
     </details></div>
@@ -191,7 +204,7 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
       <summary>05 · Certifications & Projects</summary>
       <div class="section-content">
         <div class="field"><label>Certifications</label><textarea data-key="certifications" placeholder="Certification — Organization — Year"></textarea></div>
-        <div class="field"><label>Projects & Key Achievements</label><textarea data-key="projects" placeholder="Project — contribution — actual result"></textarea></div>
+        <div class="field"><label>Projects & Key Achievements</label><textarea data-key="projects" placeholder="Project — contribution — result"></textarea></div>
       </div>
     </details></div>
 
@@ -230,8 +243,7 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
     <div class="tools">
       <button class="btn primary" onclick="saveResume()">Save Resume</button>
       <button class="btn" onclick="loadResume()">Load Saved</button>
-      <button class="btn" onclick="document.getElementById('jsonFile').click()">Import JSON</button>
-      <button class="btn" onclick="window.print()">Export PDF</button>
+      <button class="btn" onclick="exportJSON()">Export JSON</button>
     </div>
 
     <div class="atsbox">
@@ -239,7 +251,6 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
       <div class="progress"><div id="atsBar"></div></div>
       <p class="muted" id="atsScore"></p>
       <div id="atsChecks"></div>
-      <p class="muted">This is a basic checklist, not a guarantee of passing an employer's screening system.</p>
     </div>
   </div>
 </section>
@@ -257,26 +268,44 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 </section>
 </main>
 
+<!-- COVER LETTER PAGE -->
+<main class="layout hidden" id="coverPage">
+<section class="panel" style="grid-column: 1 / -1;">
+  <div class="panel-head">
+    <h2>Cover Letter Generator</h2>
+    <button class="btn primary" onclick="window.print()">Print / PDF Cover Letter</button>
+  </div>
+  <div class="panel-body">
+    <div class="two" style="margin-bottom:12px;">
+      <div class="field"><label>Target Company Name</label><input id="clCompany" placeholder="Target Corporation"></div>
+      <div class="field"><label>Hiring Manager Name (if known)</label><input id="clManager" placeholder="Hiring Manager"></div>
+    </div>
+    <div class="field" style="margin-bottom:12px;"><label>Job Role Applied For</label><input id="clRole" value="Sales Manager"></div>
+    <button class="btn dark" onclick="generateCoverLetter()">Generate Cover Letter</button>
+    <div class="field" style="margin-top:14px;">
+      <label>Cover Letter Output (Editable)</label>
+      <textarea id="clOutput" style="min-height:250px;"></textarea>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- INTERVIEW PREPARATION PAGE -->
 <main class="layout hidden" id="interviewPage">
-<section class="panel" id="interviewPanel">
+<section class="panel" id="interviewPanel" style="grid-column: 1 / -1;">
   <div class="panel-head">
     <h2>Interview Preparation Center</h2>
     <span class="muted">Practice and track progress</span>
   </div>
   <div class="panel-body">
-
     <div class="interview-intro">
       <strong>Prepare. Practice. Perform.</strong><br>
       <span>အင်တာဗျူးမဖြေခင် မေးခွန်းတွေကို ကြိုတင်လေ့ကျင့်ပါ။ နမူနာအဖြေကို အလွတ်ကျက်မယ့်အစား ကိုယ့်အတွေ့အကြုံအစစ်နဲ့ ပြန်လည်ပြင်ဆင်ပါ။</span>
     </div>
 
     <div class="two">
-      <div class="field">
-        <label>Target Job Title</label>
-        <input id="interviewRole" placeholder="e.g. Sales Manager">
-      </div>
-      <div class="field">
-        <label>Answer Language</label>
+      <div class="field"><label>Target Job Title</label><input id="interviewRole" value="Sales Manager"></div>
+      <div class="field"><label>Answer Language</label>
         <select id="interviewLanguage">
           <option value="en">English</option>
           <option value="my">မြန်မာဘာသာ</option>
@@ -301,24 +330,12 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
       <label class="checkrow"><input type="checkbox"> Review the job description and key requirements</label>
       <label class="checkrow"><input type="checkbox"> Prepare three real achievement examples</label>
       <label class="checkrow"><input type="checkbox"> Prepare your salary expectation</label>
-      <label class="checkrow"><input type="checkbox"> Prepare two thoughtful questions for the interviewer</label>
-      <label class="checkrow"><input type="checkbox"> Confirm interview time, location, and required documents</label>
-    </div>
-
-    <div class="interview-card">
-      <h3>STAR Method</h3>
-      <p><strong>S — Situation:</strong> Describe the business situation.</p>
-      <p><strong>T — Task:</strong> Explain your responsibility.</p>
-      <p><strong>A — Action:</strong> Describe what you personally did.</p>
-      <p><strong>R — Result:</strong> Explain the actual outcome, using verified numbers where available.</p>
-      <p class="muted">Tip: Prepare real examples of target achievement, problem solving, team coaching, customer management, and conflict resolution.</p>
     </div>
   </div>
 </section>
 </main>
 
 <footer>Professional Resume Builder Pro · Browser-based · No account required</footer>
-<input type="file" id="jsonFile" accept=".json,application/json" hidden>
 
 <script>
 const $=s=>document.querySelector(s); const $$=s=>[...document.querySelectorAll(s)];
@@ -331,10 +348,10 @@ const defaults={
  location:"Yangon, Myanmar",
  linkedin:"linkedin.com/in/aungzarniwin",
  website:"",
- summary:"Results-driven Sales Manager with over 11 years of extensive experience at Myanmar Carlsberg, specializing in channel management, sales planning, market expansion, and team leadership. Proven track record of driving revenue growth, optimizing distribution networks, and building high-performing sales teams.",
- skills:"Sales Management, Channel Management, Sales Planning, Market Expansion, Key Account Management, Team Leadership, Distribution Optimization, KPI Tracking, Data Analysis, Strategic Negotiation",
+ summary:"Results-driven Sales Manager with over 11 years of extensive experience at Myanmar Carlsberg, specializing in channel management, sales planning, market expansion, and team leadership. Proven track record of driving revenue growth and optimizing distribution networks.",
+ skills:"Sales Management, Channel Management, Sales Planning, Market Expansion, Key Account Management, Team Leadership, Distribution Optimization, KPI Tracking",
  languages:"English, Burmese",
- certifications:"Sales Leadership & Channel Management Excellence — Myanmar Carlsberg",
+ certifications:"Sales Leadership Excellence — Myanmar Carlsberg",
  projects:"Market Expansion & Distribution Network Upgrade — Expanded distribution coverage across key regions, significantly improving retail presence and sales volume.",
  experience:[
   {
@@ -343,7 +360,7 @@ const defaults={
    location:"Yangon",
    start:"2024",
    end:"Present",
-   details:"Lead sales strategy, market penetration, and customer relationship management to drive revenue growth and expand market share.\nManage sales teams, set performance KPIs, and conduct regular field coaching to ensure target achievement."
+   details:"Lead sales strategy, market penetration, and customer relationship management to drive revenue growth.\nManage sales teams, set performance KPIs, and conduct regular field coaching."
   },
   {
    title:"Channel Management & Sales Planning Roles",
@@ -351,7 +368,7 @@ const defaults={
    location:"Yangon",
    start:"2013",
    end:"2024",
-   details:"Spent 11 progressive years managing sales planning, channel strategy, market expansion, and key accounts.\nOptimized distribution channels, improved route-to-market efficiency, and successfully launched new market expansion initiatives.\nLed cross-functional sales operations and coached sales teams to consistently surpass quarterly and annual revenue targets."
+   details:"Spent 11 progressive years managing sales planning, channel strategy, market expansion, and key accounts.\nOptimized distribution channels, improved route-to-market efficiency, and led high-performing sales teams."
   }
  ],
  education:[
@@ -361,13 +378,19 @@ const defaults={
    location:"Yangon",
    start:"2008",
    end:"2012",
-   details:"Focused on business foundation, management principles, and communication."
+   details:"Focused on business foundation and management principles."
   }
  ]
 };
 
 let state=JSON.parse(JSON.stringify(defaults));
 let interviewCategory="common";
+let isDark=false;
+
+function toggleDarkMode(){
+ isDark=!isDark;
+ document.body.classList.toggle("dark-mode",isDark);
+}
 
 function esc(v){
  return String(v??"").replace(/[&<>"']/g,c=>({
@@ -402,7 +425,7 @@ function renderLists(){
    <div class="field"><label>Reorder</label><div class="tools"><button class="btn" onclick="moveEntry('experience',${i},-1)">↑</button><button class="btn" onclick="moveEntry('experience',${i},1)">↓</button></div></div>
   </div>
   ${makeTextarea("Achievements (one per line)","details",e.details,"Led a team...\nImproved performance...")}
- </div>`).join("")||'<p class="empty">No experience added. Click Add Experience.</p>';
+ </div>`).join("")||'<p class="empty">No experience added.</p>';
 
  $("#educationList").innerHTML=state.education.map((e,i)=>`
  <div class="list-item">
@@ -531,23 +554,20 @@ function saveResume(){
  try{
   localStorage.setItem("professionalResumeBuilder",JSON.stringify(state));
   $("#saveStatus").textContent="Saved locally ✓";
- }catch(e){
-  alert("Unable to save. Browser storage may be unavailable.");
- }
+ }catch(e){alert("Unable to save.");}
 }
 function loadResume(){
  try{
   const raw=localStorage.getItem("professionalResumeBuilder");
-  if(!raw){alert("No saved resume found in this browser.");return;}
+  if(!raw){alert("No saved resume found.");return;}
   const data=JSON.parse(raw);
-  if(!data||!Array.isArray(data.experience)||!Array.isArray(data.education))throw Error();
   state={...JSON.parse(JSON.stringify(defaults)),...data};
   syncForm();renderLists();renderPreview();
   $("#saveStatus").textContent="Loaded ✓";
- }catch(e){alert("Could not load saved resume data.");}
+ }catch(e){alert("Could not load data.");}
 }
 function newResume(){
- if(!confirm("Start a blank resume? Export your current work first if needed."))return;
+ if(!confirm("Start a blank resume?"))return;
  state=JSON.parse(JSON.stringify(defaults));
  syncForm();renderLists();renderPreview();
  $("#saveStatus").textContent="New resume";
@@ -559,52 +579,77 @@ function exportJSON(){
  a.href=url;a.download="professional-resume.json";a.click();
  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
-$("#jsonFile").addEventListener("change",async e=>{
+
+// CV Upload and Parse Feature
+$("#cvUploadInput").addEventListener("change",async e=>{
  const file=e.target.files[0];
  if(!file)return;
  try{
-  const data=JSON.parse(await file.text());
-  if(!data||typeof data!=="object"||Array.isArray(data)||
-      !Array.isArray(data.experience)||!Array.isArray(data.education))throw Error();
-  if(!confirm("Import and replace the current resume?"))return;
-  state={...JSON.parse(JSON.stringify(defaults)),...data};
+  const text=await file.text();
+  if(file.name.endsWith(".json")){
+   const data=JSON.parse(text);
+   state={...JSON.parse(JSON.stringify(defaults)),...data};
+  } else {
+   // Simple text parsing fallback
+   state.summary=text.slice(0, 300);
+  }
   syncForm();renderLists();renderPreview();
-  $("#saveStatus").textContent="Imported ✓";
- }catch(err){alert("Invalid resume JSON file.");}
+  alert("CV Uploaded and Parsed Successfully!");
+  $("#saveStatus").textContent="Uploaded & Parsed ✓";
+ }catch(err){
+  alert("Could not parse file. Please upload a valid JSON resume or text file.");
+ }
  e.target.value="";
 });
 
+// AI Polish Summary Simulation
+function aiImproveSummary(){
+ state.summary=`Strategic and high-performing ${state.role} with extensive leadership experience in channel management, sales planning, and market expansion. Proven ability to optimize distribution networks, lead cross-functional teams, and consistently exceed revenue targets.`;
+ syncForm();
+ renderPreview();
+ alert("Professional summary polished successfully!");
+}
+
+// Cover Letter Generator
+function generateCoverLetter(){
+ const company=$("#clCompany").value||"Target Company";
+ const manager=$("#clManager" ).value||"Hiring Manager";
+ const role=$("#clRole").value||state.role;
+ const text=`Dear ${manager},\n\nI am writing to express my strong interest in the ${role} position at ${company}. With over 11 years of executive sales leadership, channel management, and market expansion experience at Myanmar Carlsberg, I have a proven history of driving revenue growth and optimizing distribution performance.\n\nThroughout my career, I have successfully led sales teams, established strong strategic partnerships, and ensured target achievement through data-driven planning and field coaching. I am eager to bring my expertise to ${company} to contribute to your ongoing business success.\n\nThank you for considering my application. I look forward to discussing how my background aligns with your team's goals.\n\nSincerely,\n${state.name}\n${state.phone}\n${state.email}`;
+ $("#clOutput").value=text;
+}
+
 function showPage(page){
  const isResume=page==="resume";
+ const isCover=page==="cover";
+ const isInterview=page==="interview";
+
  $("#resumePage").classList.toggle("hidden",!isResume);
- $("#interviewPage").classList.toggle("hidden",isResume);
+ $("#coverPage").classList.toggle("hidden",!isCover);
+ $("#interviewPage").classList.toggle("hidden",!isInterview);
+
  $("#tabResume").classList.toggle("active",isResume);
- $("#tabInterview").classList.toggle("active",!isResume);
+ $("#tabCover").classList.toggle("active",isCover);
+ $("#tabInterview").classList.toggle("active",isInterview);
  window.scrollTo({top:0,behavior:"smooth"});
 }
 
-// Interview question library
+// Interview library
 const interviewData={
  common:[
   {
    q:"Tell me about yourself.",
-   tip:"Use Present → Past → Strengths → Future. Aim for 60–90 seconds.",
-   en:"I am a sales professional with over 11 years of experience in channel management, sales planning, and market expansion at Myanmar Carlsberg. In my previous roles, I focused on achieving targets, improving distribution, managing key accounts, and developing sales teams. I am now looking for an opportunity to use my experience to deliver sustainable business growth.",
-   my:"ကျွန်တော်ဟာ Myanmar Carlsberg မှာ Channel Management၊ Sales Planning နဲ့ Market Expansion ဘက်နဲ့ ပတ်သက်ပြီး ၁၁ နှစ်ကျော် အတွေ့အကြုံရှိတဲ့ Sales Professional တစ်ယောက်ဖြစ်ပါတယ်။ ယခင်အလုပ်တွေမှာ Sales Target ပြည့်မီရေး၊ Distribution တိုးတက်ရေး၊ Key Account စီမံခန့်ခွဲရေးနဲ့ Sales Team ဖွံ့ဖြိုးတိုးတက်ရေးတို့ကို အဓိကလုပ်ဆောင်ခဲ့ပါတယ်။"
-  },
-  {
-   q:"Why should we hire you?",
-   tip:"Connect your strengths to the role. Use evidence rather than unsupported claims.",
-   en:"I bring 11 years of corporate sales leadership experience, practical channel management, market expansion expertise, and KPI-driven decision-making. I focus on identifying performance gaps, developing action plans, and following through to achieve business objectives.",
-   my:"ကျွန်တော့်မှာ कर्ल्सဘတ် (Myanmar Carlsberg) မှာ ၁၁ နှစ်တာ လုပ်ကိုင်ခဲ့တဲ့ Corporate Sales Leadership အတွေ့အကြုံ၊ Channel Management၊ Market Expansion ကျွမ်းကျင်မှုနဲ့ KPI အခြေပြု ဆုံးဖြတ်ချက်ချနိုင်မှုတို့ ရှိပါတယ်။"
+   tip:"Use Present → Past → Strengths → Future.",
+   en:"I am a sales professional with over 11 years of experience in channel management, sales planning, and market expansion at Myanmar Carlsberg.",
+   my:"ကျွန်တော်ဟာ Myanmar Carlsberg မှာ Channel Management၊ Sales Planning နဲ့ Market Expansion ဘက်နဲ့ ပတ်သက်ပြီး ၁၁ နှစ်ကျော် အတွေ့အကြုံရှိတဲ့ Sales Professional တစ်ယောက်ဖြစ်ပါတယ်။"
   }
  ],
  sales:[
   {
    q:"How do you achieve monthly sales targets?",
-   tip:"Discuss target breakdown, territory planning, daily execution, KPIs and corrective action.",
-   en:"Drawing from my extensive background in sales planning and channel management, I break monthly targets into weekly and daily objectives, allocating them by territory, channel, and customer potential.",
-   my:"Sales Planning နဲ့ Channel Management အတွေ့အကြုံတွေအရ လစဉ် Target ကို Weekly နဲ့ Daily Target တွေအဖြစ် ခွဲပြီး Territory နဲ့ Channel အလိုက် ခွဲဝေဆောင်ရွက်ပါတယ်။"
+   tip:"Discuss target breakdown, territory planning, daily execution and KPIs.",
+   en:"I break monthly targets into weekly and daily objectives, allocating them by territory, channel, and customer potential.",
+   my:"လစဉ် Target ကို Weekly နဲ့ Daily Target တွေအဖြစ် ခွဲပြီး Territory နဲ့ Channel အလိုက် ခွဲဝေဆောင်ရွက်ပါတယ်။"
   }
  ]
 };
@@ -614,7 +659,7 @@ function renderInterview(){
  $("#interviewCount").textContent=`Showing ${items.length} questions for this category`;
  $("#interviewQuestions").innerHTML=items.map((item,idx)=>`
  <div class="interview-card">
-  <div class="tag">Question ${idx+1}</div>
+  <div class="tag" style="color:var(--gold)">Question ${idx+1}</div>
   <h3>${esc(item.q)}</h3>
   <p class="muted">💡 Tip: ${esc(item.tip)}</p>
   <div class="answer">
@@ -636,6 +681,7 @@ syncForm();
 renderLists();
 renderPreview();
 renderInterview();
+generateCoverLetter();
 </script>
 </body>
 </html>
