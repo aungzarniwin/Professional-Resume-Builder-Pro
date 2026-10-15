@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#151b2b">
-<title>Professional Resume Builder Pro</title>
+<title>Professional Resume Builder Pro - Aung Zar Ni Win</title>
 <!-- html-docx-js for Word Export -->
 <script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.js"></script>
-<!-- mammoth.js for DOCX Import / Reading -->
+<!-- mammoth.js for DOCX Parsing -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 <style>
 :root{--navy:#172033;--gold:#c7a45a;--bg:#f3f5f9;--line:#e0e5ed;--muted:#687386;--white:#fff;--green:#277653;--card-bg:#fff}
@@ -53,18 +53,18 @@ button{cursor:pointer}
 .resume-inner{padding:40px 43px}
 .resume-header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:2px solid var(--accent);padding-bottom:17px;margin-bottom:19px}
 .resume-header-left{flex:1}
-.resume-photo{width:90px;height:110px;object-fit:cover;border-radius:4px;border:1px solid #ccc;background:#eee;display:none}
-.resume-name{font-size:30px;font-weight:800;line-height:1.2;margin:0 0 5px}
+.resume-photo{width:95px;height:115px;object-fit:cover;border-radius:4px;border:1px solid #ccc;background:#eee;display:none}
+.resume-name{font-size:28px;font-weight:800;line-height:1.2;margin:0 0 5px;letter-spacing:0.5px}
 .resume-role{font-size:13px;font-weight:bold;color:var(--accent);margin-bottom:9px}
 .contact{display:flex;flex-wrap:wrap;gap:5px 13px;color:#586477;font-size:10px}
 .resume-section{margin:0 0 18px;break-inside:avoid}
 .resume-section h3{font-size:12px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid #dfe4ec;padding-bottom:6px;margin:0 0 9px}
 .resume-section p{margin:0;white-space:pre-line}
-.entry{margin-bottom:11px;break-inside:avoid}
-.entry-top{display:flex;justify-content:space-between;gap:9px;font-weight:bold}
-.entry-sub{color:#657185;font-size:10px;margin:2px 0 4px}
+.entry{margin-bottom:14px;break-inside:avoid}
+.entry-top{display:flex;justify-content:space-between;gap:9px;font-weight:bold;font-size:12px}
+.entry-sub{color:#657185;font-size:10.5px;margin:2px 0 5px;font-weight:600}
 .entry ul{padding-left:16px;margin:5px 0}
-.entry li{margin-bottom:3px}
+.entry li{margin-bottom:4px;line-height:1.6}
 .skills{display:flex;flex-wrap:wrap;gap:6px}
 .skill{background:#f1f3f6;border-radius:4px;padding:4px 7px;font-size:10px;color:#263246}
 .resume.executive .resume-header{text-align:center;flex-direction:column-reverse;align-items:center}
@@ -163,20 +163,23 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
     <div class="section"><details open>
       <summary>01 · Personal Information & Photo</summary>
       <div class="section-content">
-        <div class="field"><label>Full Name *</label><input data-key="name" placeholder="Alex Morgan"></div>
-        <div class="field"><label>Professional Title</label><input data-key="role" placeholder="Sales Manager"></div>
+        <div class="field"><label>Full Name *</label><input data-key="name" placeholder="Aung Zar Ni Win"></div>
+        <div class="field"><label>Professional Title</label><input data-key="role" placeholder="Area Sales Manager"></div>
         <div class="field">
           <label>Passport Photo (Upload Image File)</label>
           <input type="file" id="photoUploadInput" accept="image/*" style="padding:6px;">
         </div>
         <div class="two">
-          <div class="field"><label>Email</label><input data-key="email" type="email" placeholder="name@example.com"></div>
-          <div class="field"><label>Phone</label><input data-key="phone" placeholder="+95 ..."></div>
+          <div class="field"><label>Email</label><input data-key="email" type="email" placeholder="agzarniwin@gmail.com"></div>
+          <div class="field"><label>Phone</label><input data-key="phone" placeholder="+95 9 43016420"></div>
         </div>
-        <div class="field"><label>Location</label><input data-key="location" placeholder="Yangon, Myanmar"></div>
         <div class="two">
-          <div class="field"><label>LinkedIn</label><input data-key="linkedin" placeholder="linkedin.com/in/..."></div>
-          <div class="field"><label>Portfolio</label><input data-key="website" placeholder="yourwebsite.com"></div>
+          <div class="field"><label>Date of Birth</label><input data-key="dob" placeholder="2.8.1983"></div>
+          <div class="field"><label>Location</label><input data-key="location" placeholder="North Dagon Township, Yangon"></div>
+        </div>
+        <div class="two">
+          <div class="field"><label>LinkedIn</label><input data-key="linkedin" placeholder="linkedin.com/in/aungzarniwin"></div>
+          <div class="field"><label>Portfolio / Website</label><input data-key="website" placeholder="yourwebsite.com"></div>
         </div>
         <div class="field">
           <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -189,7 +192,7 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
     </details></div>
 
     <div class="section"><details open>
-      <summary>02 · Work Experience</summary>
+      <summary>02 · Detailed Work Experience</summary>
       <div class="section-content">
         <div id="experienceList"></div>
         <button class="btn dark" onclick="addEntry('experience')">+ Add Experience</button>
@@ -207,13 +210,13 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
     <div class="section"><details>
       <summary>04 · Skills & Languages</summary>
       <div class="section-content">
-        <div class="field"><label>Skills (comma-separated)</label><textarea data-key="skills" placeholder="Leadership, Sales Strategy, Excel"></textarea></div>
+        <div class="field"><label>Skills (comma-separated)</label><textarea data-key="skills" placeholder="Sales Management, Channel Management, Sales Planning"></textarea></div>
         <div class="field"><label>Languages (comma-separated)</label><input data-key="languages" placeholder="English, Burmese"></div>
       </div>
     </details></div>
 
     <div class="section"><details>
-      <summary>05 · Certifications & Projects</summary>
+      <summary>05 · Certifications & Key Achievements</summary>
       <div class="section-content">
         <div class="field"><label>Certifications</label><textarea data-key="certifications" placeholder="Certification — Organization — Year"></textarea></div>
         <div class="field"><label>Projects & Key Achievements</label><textarea data-key="projects" placeholder="Project — contribution — result"></textarea></div>
@@ -298,7 +301,7 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
       <div class="field"><label>Target Company Name</label><input id="clCompany" placeholder="Target Corporation"></div>
       <div class="field"><label>Hiring Manager Name (if known)</label><input id="clManager" placeholder="Hiring Manager"></div>
     </div>
-    <div class="field" style="margin-bottom:12px;"><label>Job Role Applied For</label><input id="clRole" value="Sales Manager"></div>
+    <div class="field" style="margin-bottom:12px;"><label>Job Role Applied For</label><input id="clRole" value="Area Sales Manager"></div>
     <button class="btn dark" onclick="generateCoverLetter()">Generate Cover Letter</button>
     <div class="field" style="margin-top:14px;">
       <label>Cover Letter Output (Editable)</label>
@@ -312,17 +315,17 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 <main class="layout hidden" id="interviewPage">
 <section class="panel" id="interviewPanel" style="grid-column: 1 / -1;">
   <div class="panel-head">
-    <h2>Interview Preparation Center (Aung Zar Ni Win - Sales Management Experience)</h2>
-    <span class="muted">Extended Q&A Tailored with 11+ years Myanmar Carlsberg & Sales Manager experience</span>
+    <h2>Interview Preparation Center (Aung Zar Ni Win - 15+ Years Experience)</h2>
+    <span class="muted">Tailored for Area Sales Manager / Senior Sales Leadership Role</span>
   </div>
   <div class="panel-body">
     <div class="interview-intro">
       <strong>Prepare. Practice. Perform.</strong><br>
-      <span>ကုမ္ပဏီအင်တာဗျူးများတွင် မကြာခဏ မေးလေ့ရှိသော အဓိက မေးခွန်းများနှင့် Sales Manager ရာထူးအတွက် စနစ်တကျ ပြန်လည်ဖြေဆိုနိုင်မည့် နမူနာအဖြေများ။</span>
+      <span>၁၅ နှစ်ကျော် Sales, Marketing, Distribution Management အတွေ့အကြုံများနှင့် Myanmar Carlsberg ၌ ၁၁ နှစ်တာ Channel Management & Sales Planning လုပ်ကိုင်ခဲ့မှုများအတွက် အင်တာဗျူးမေးခွန်းနှင့် အဆင့်မြှင့်နမူနာအဖြေများ။</span>
     </div>
 
     <div class="two">
-      <div class="field"><label>Target Job Title</label><input id="interviewRole" value="Sales Manager"></div>
+      <div class="field"><label>Target Job Title</label><input id="interviewRole" value="Area Sales Manager"></div>
       <div class="field"><label>Answer Language</label>
         <select id="interviewLanguage">
           <option value="en">English</option>
@@ -334,9 +337,9 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
     <div class="question-nav" id="interviewNav">
       <button class="btn active" data-category="experience">Experience & Background</button>
       <button class="btn" data-category="channel">Channel & Sales Planning</button>
-      <button class="btn" data-category="expansion">Market Expansion</button>
+      <button class="btn" data-category="expansion">Market Expansion & RTM</button>
       <button class="btn" data-category="leadership">Team Leadership & KPIs</button>
-      <button class="btn" data-category="behavioral">Behavioral & Challenges</button>
+      <button class="btn" data-category="behavioral">Behavioral & Crisis</button>
       <button class="btn" data-category="salary">Salary & Closing</button>
     </div>
 
@@ -346,9 +349,9 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
 
     <div class="interview-card">
       <h3>Interview Day Checklist</h3>
-      <label class="checkrow"><input type="checkbox"> Highlight 11 years of structural FMCG sales and commercial leadership at Myanmar Carlsberg</label>
-      <label class="checkrow"><input type="checkbox"> Prepare specific metrics on distribution coverage and revenue growth</label>
-      <label class="checkrow"><input type="checkbox"> Demonstrate strong understanding of local market dynamics in Yangon/Myanmar</label>
+      <label class="checkrow"><input type="checkbox"> Highlight 15+ years total experience & 11 years progressive growth at Myanmar Carlsberg</label>
+      <label class="checkrow"><input type="checkbox"> Emphasize Route-to-Market (RTM), Channel Strategy & Distribution Coverage Expansion</label>
+      <label class="checkrow"><input type="checkbox"> Demonstrate strong understanding of Yangon & Myanmar regional market dynamics</label>
     </div>
   </div>
 </section>
@@ -362,18 +365,19 @@ const $$=s=>[...document.querySelectorAll(s)];
 
 const defaults={
  name:"Aung Zar Ni Win",
- role:"Sales Manager",
- email:"aungzarniwin@example.com",
- phone:"+95 9 ...",
- location:"Yangon, Myanmar",
+ role:"Area Sales Manager",
+ email:"agzarniwin@gmail.com",
+ phone:"+95 9 43016420",
+ location:"No.1121, Pyi Thar Yar 4 street, 32 Ward, North Dagon Township, Yangon",
+ dob:"2.8.1983",
  linkedin:"linkedin.com/in/aungzarniwin",
  website:"",
  photo:"",
- summary:"Results-driven Sales Manager with over 11 years of extensive experience at Myanmar Carlsberg, specializing in channel management, sales planning, market expansion, and team leadership. Proven track record of driving revenue growth and optimizing distribution networks.",
- skills:"Sales Management, Channel Management, Sales Planning, Market Expansion, Key Account Management, Team Leadership, Distribution Optimization, KPI Tracking",
+ summary:"Results-driven Area Sales Manager with over 15 years of proven experience in Sales, Marketing, Channel Management, and Distribution Strategy across FMCG and Commercial sectors. Highly skilled in Route-to-Market (RTM) execution, distributor partnership development, market coverage expansion, and sales forecasting. Strong record of leading high-performing field teams and consistently exceeding revenue & market share growth targets.",
+ skills:"Area Sales Management, Channel Strategy & Planning, Route-to-Market (RTM) Execution, FMCG & Commercial Sales, Key Account Management, Distributor & Wholesaler Management, Sales Forecasting & Budgeting, Team Leadership & Coaching, Field Execution & Merchandising, Trade Marketing Alignment",
  languages:"English, Burmese",
- certifications:"Sales Leadership Excellence — Myanmar Carlsberg",
- projects:"Market Expansion & Distribution Network Upgrade — Expanded distribution coverage across key regions, significantly improving retail presence and sales volume.",
+ certifications:"Sales Leadership Excellence & Route-to-Market Execution — Myanmar Carlsberg\nAdvanced Channel Management & Key Account Strategy — FMCG Academy",
+ projects:"Regional Market Expansion & Route Optimization — Expanded distribution coverage by 25%, establishing 150+ new direct/indirect outlets across key Yangon territories.\nDistributor Efficiency & Trade Promotion Alignment — Restructured distributor stock cycles, reducing stock-outs by 18% and improving trade promotion ROI.",
  experience:[
   {
    title:"Sales Manager",
@@ -381,15 +385,23 @@ const defaults={
    location:"Yangon",
    start:"2024",
    end:"Present",
-   details:"Lead sales strategy, market penetration, and customer relationship management to drive revenue growth.\nManage sales teams, set performance KPIs, and conduct regular field coaching."
+   details:"Lead sales strategy, market penetration, and key B2B client acquisition for commercial vehicles and services across assigned territories.\nFormulate monthly sales forecasts, set territory-specific targets, and manage sales pipelines to ensure consistent revenue growth.\nSupervise, mentor, and conduct regular field coaching for sales executives, improving overall deal closing rates.\nCollaborate closely with marketing and after-sales teams to design targeted customer promotional packages and enhance retention."
   },
   {
-   title:"Channel Management & Sales Planning Roles",
+   title:"Area Sales Manager / Channel Management & Sales Planning Roles",
    company:"Myanmar Carlsberg",
-   location:"Yangon",
+   location:"Yangon & Key Regions",
    start:"2013",
    end:"2024",
-   details:"Spent 11 progressive years managing sales planning, channel strategy, market expansion, and key accounts.\nOptimized distribution channels, improved route-to-market efficiency, and led high-performing sales teams."
+   details:"Spearheaded channel management, route-to-market (RTM) planning, and sales execution over 11 progressive years at a leading multinational brewery.\nManaged relationships with primary distributors, key wholesalers, Modern Trade (MT), and On-Premise/Off-Premise channels to ensure maximum market availability.\nDeveloped and executed monthly/quarterly sales plans, achieving average sales target completion of 105%+ year-on-year.\nOptimized sales routes and sales rep visit frequency, resulting in a 25% increase in numeric distribution and retail presence.\nLed, trained, and monitored performance KPIs for a team of 20+ sales supervisors and representatives, driving field productivity and execution excellence.\nMonitored competitor activities, market pricing, and trade dynamics to deliver actionable commercial insights to senior executive leadership."
+  },
+  {
+   title:"Sales & Distribution Executive",
+   company:"FMCG & Distribution Companies",
+   location:"Yangon",
+   start:"2008",
+   end:"2013",
+   details:"Managed day-to-day sales operations, retail coverage, and order generation across assigned Yangon territories.\nMaintained strong relationships with retail store owners and wholesalers, resolving delivery and stock availability issues promptly.\nExecuted trade merchandising standards and point-of-sale material (POSM) placements to boost product visibility."
   }
  ],
  education:[
@@ -399,7 +411,7 @@ const defaults={
    location:"Yangon",
    start:"2008",
    end:"2012",
-   details:"Focused on business foundation and management principles."
+   details:"Focused on Business Foundation, Economics, and Management principles."
   }
  ]
 };
@@ -435,7 +447,7 @@ function renderLists(){
  $("#experienceList").innerHTML=state.experience.map((e,i)=>`
  <div class="list-item">
   <div class="list-title"><span>Experience ${i+1}</span><button class="btn danger" onclick="removeEntry('experience',${i})">Remove</button></div>
-  ${makeField("Job Title","title",e.title,"Sales Manager")}
+  ${makeField("Job Title","title",e.title,"Area Sales Manager")}
   ${makeField("Company","company",e.company,"Company name")}
   <div class="two">
    ${makeField("Location","location",e.location,"Yangon")}
@@ -445,7 +457,7 @@ function renderLists(){
    ${makeField("End Date","end",e.end,"Present")}
    <div class="field"><label>Reorder</label><div class="tools"><button class="btn" onclick="moveEntry('experience',${i},-1)">↑</button><button class="btn" onclick="moveEntry('experience',${i},1)">↓</button></div></div>
   </div>
-  ${makeTextarea("Achievements (one per line)","details",e.details,"Led a team...\nImproved performance...")}
+  ${makeTextarea("Key Responsibilities & Achievements (one per line)","details",e.details,"Led a team...\nImproved performance...")}
  </div>`).join("")||'<p class="empty">No experience added.</p>';
 
  $("#educationList").innerHTML=state.education.map((e,i)=>`
@@ -516,7 +528,7 @@ function renderEntries(type){
 
 function renderPreview(){
  const p=state;
- const contacts=[p.email,p.phone,p.location,p.linkedin,p.website].filter(Boolean);
+ const contacts=[p.email,p.phone,p.location,p.dob?`DOB: ${p.dob}`:"",p.linkedin,p.website].filter(Boolean);
  const skills=p.skills.split(",").map(x=>x.trim()).filter(Boolean);
  const languages=p.languages.split(",").map(x=>x.trim()).filter(Boolean);
 
@@ -537,7 +549,7 @@ function renderPreview(){
  ${section("Core Skills",skills.length?`<div class="skills">${skills.map(x=>`<span class="skill">${esc(x)}</span>`).join("")}</div>`:"")}
  ${section("Languages",languages.length?`<p>${languages.map(esc).join(" · ")}</p>`:"")}
  ${section("Certifications",lines(p.certifications).length?`<ul>${lines(p.certifications).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"")}
- ${section("Projects & Key Achievements",lines(p.projects).length?`<ul>${lines(p.projects).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"")}
+ ${section("Key Achievements & Projects",lines(p.projects).length?`<ul>${lines(p.projects).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"")}
  `;
 
  $("#resumePreview").className="resume "+$("#template").value;
@@ -634,21 +646,27 @@ function exportWord(){
  setTimeout(()=>URL.revokeObjectURL(url), 1000);
 }
 
-// Advanced CV File Reader (.docx, .json, .txt)
+function cleanExtractedText(rawText) {
+ return rawText
+  .replace(/([A-Z])\s+([A-Z])\s+([A-Z])/g, '$1$2$3')
+  .replace(/\s+/g, ' ')
+  .trim();
+}
+
 $("#cvUploadInput").addEventListener("change", async e=>{
  const file=e.target.files[0];
  if(!file)return;
 
  try{
   if(file.name.endsWith(".docx")){
-   // Read DOCX using mammoth.js
    const arrayBuffer = await file.arrayBuffer();
    const result = await mammoth.extractRawText({arrayBuffer: arrayBuffer});
-   const extractedText = result.value || "";
+   let extractedText = result.value || "";
    
    if(extractedText.trim()){
-    state.summary = extractedText.slice(0, 500);
-    alert("Word Document (.docx) content extracted into Professional Summary successfully!");
+    let cleaned = cleanExtractedText(extractedText);
+    state.summary = cleaned.slice(0, 600);
+    alert("Word Document (.docx) content extracted & formatted successfully!");
    } else {
     alert("No plain text found inside this DOCX file.");
    }
@@ -661,7 +679,7 @@ $("#cvUploadInput").addEventListener("change", async e=>{
   } 
   else {
    const text = await file.text();
-   state.summary = text.slice(0, 500);
+   state.summary = cleanExtractedText(text).slice(0, 600);
    alert("Text file content imported successfully!");
   }
 
@@ -670,13 +688,13 @@ $("#cvUploadInput").addEventListener("change", async e=>{
   renderPreview();
   $("#saveStatus").textContent="Uploaded & Parsed ✓";
  }catch(err){
-  alert("Could not parse file. Please upload a valid .docx, .json, or .txt file.");
+  alert("Could not parse file.");
  }
  e.target.value="";
 });
 
 function aiImproveSummary(){
- state.summary=`Strategic and high-performing ${state.role} with over 11 years of extensive experience at Myanmar Carlsberg, specializing in channel management, sales planning, and market expansion. Proven track record of driving revenue growth and optimizing distribution networks.`;
+ state.summary=`Results-driven Area Sales Manager with over 15 years of proven experience in Sales, Marketing, Channel Management, and Distribution Strategy across FMCG and Commercial sectors. Highly skilled in Route-to-Market (RTM) execution, distributor partnership development, market coverage expansion, and sales forecasting. Strong record of leading high-performing field teams and consistently exceeding revenue & market share growth targets.`;
  syncForm();
  renderPreview();
  alert("Professional summary polished successfully!");
@@ -686,7 +704,7 @@ function generateCoverLetter(){
  const company=$("#clCompany").value||"Target Company";
  const manager=$("#clManager" ).value||"Hiring Manager";
  const role=$("#clRole").value||state.role;
- const text=`Dear ${manager},\n\nI am writing to express my strong interest in the ${role} position at ${company}. With over 11 years of executive sales leadership, channel management, and market expansion experience at Myanmar Carlsberg, I have a proven history of driving revenue growth and optimizing distribution performance.\n\nThroughout my career, I have successfully led sales teams, established strong strategic partnerships, and ensured target achievement through data-driven planning and field coaching. I am eager to bring my expertise to ${company} to contribute to your ongoing business success.\n\nThank you for considering my application. I look forward to discussing how my background aligns with your team's goals.\n\nSincerely,\n${state.name}\n${state.phone}\n${state.email}`;
+ const text=`Dear ${manager},\n\nI am writing to express my strong interest in the ${role} position at ${company}. With over 15 years of executive sales leadership, channel management, and market expansion experience (including 11 key years at Myanmar Carlsberg), I have a proven history of driving revenue growth and optimizing distribution performance.\n\nThroughout my career, I have successfully led sales teams, established strong strategic partnerships, and ensured target achievement through data-driven planning and field coaching. I am eager to bring my expertise to ${company} to contribute to your ongoing business success.\n\nThank you for considering my application. I look forward to discussing how my background aligns with your team's goals.\n\nSincerely,\n${state.name}\n${state.phone}\n${state.email}`;
  $("#clOutput").value=text;
 }
 
@@ -704,72 +722,53 @@ function showPage(page){
  window.scrollTo({top:0,behavior:"smooth"});
 }
 
-// Extended Interview Q&A Library (Commonly asked management & sales questions)
 const interviewData={
  experience:[
   {
    q:"Tell me about yourself and your professional background.",
-   tip:"Focus on your 11 years at Myanmar Carlsberg, your progression in sales planning/channel management, and your current Sales Manager expertise.",
-   en:"I am an accomplished Sales Manager with over 11 years of rich commercial experience at Myanmar Carlsberg, where I spearheaded channel management, sales planning, and market expansion initiatives. I have a proven track record of optimizing distribution channels, setting data-driven KPIs, and coaching high-performing teams to achieve sustainable revenue growth.",
-   my:"ကျွန်တော်ဟာ Myanmar Carlsberg မှာ Channel Management၊ Sales Planning နဲ့ Market Expansion ဘက်နဲ့ ပတ်သက်ပြီး ၁၁ နှစ်ကျော် အတွေ့အကြုံရှိတဲ့ Sales Professional တစ်ယောက်ဖြစ်ပါတယ်။ အဓိကအားဖြင့် Distribution Channels တွေကို မြှင့်တင်ခြင်း၊ Data-Driven KPIs တွေ ချမှတ်ခြင်းနဲ့ Team ကို ဦးဆောင်ပြီး ဝင်ငွေတိုးတက်အောင် လုပ်ဆောင်ခဲ့တဲ့ အတွေ့အကြုံတွေ ရှိပါတယ်။"
-  },
-  {
-   q:"Why are you transitioning from your long tenure at Myanmar Carlsberg to new opportunities?",
-   tip:"Express gratitude for your long foundational experience and frame the move as seeking broader commercial leadership responsibilities.",
-   en:"My 11 years at Myanmar Carlsberg provided me with a strong foundation in FMCG channel management and corporate strategy. Having achieved major milestones there, I am now looking to bring my expertise to dynamic new sectors, taking on broader commercial leadership and scaling business operations.",
-   my:"Myanmar Carlsberg မှာ ၁၁ နှစ်တာ လုပ်ကိုင်ခွင့်ရခဲ့လို့ FMCG Channel Management နဲ့ Corporate Strategy ပိုင်းမှာ အတွေ့အကြုံကောင်းတွေ အများကြီး ရရှိခဲ့ပါတယ်။ အခုတော့ အဲဒီအတွေ့အကြုံတွေကို အခြေခံပြီး လုပ်ငန်းကဏ္ဍအသစ်တွေမှာ ပိုမိုကျယ်ပြန့်တဲ့ Commercial Leadership တာဝန်တွေကို ထမ်းဆောင်ဖို့ ရည်ရွယ်ချက်နဲ့ ပြောင်းလဲလာတာ ဖြစ်ပါတယ်။"
+   tip:"Highlight your 15+ years total experience in sales management, 11 years at Myanmar Carlsberg, and core expertise in Channel Management & RTM.",
+   en:"I am an Area Sales Manager with over 15 years of rich commercial experience in Sales, Marketing, and Distribution Management. During my 11 years at Myanmar Carlsberg, I managed channel strategy, sales planning, and market expansion, consistently driving target achievement over 105% year-on-year. My expertise lies in Route-to-Market (RTM) execution, distributor management, and leading high-performing field sales teams.",
+   my:"ကျွန်တော်ဟာ Sales, Marketing နဲ့ Distribution Management ပိုင်းမှာ အတွေ့အကြုံ ၁၅ နှစ်ကျော်ရှိတဲ့ Area Sales Manager တစ်ယောက်ဖြစ်ပါတယ်။ Myanmar Carlsberg မှာ ၁၁ နှစ်တာ လုပ်ကိုင်စဉ်အတွင်း Channel Management၊ Sales Planning နဲ့ Route-to-Market (RTM) Strategy တွေကို စနစ်တကျ အကောင်အထည်ဖော်ခဲ့ပြီး နှစ်စဉ် Sales Target ၁၀၅% ထက်မနည်း အောင်မြင်အောင် ဦးဆောင်ခဲ့ပါတယ်။"
   }
  ],
  channel:[
   {
-   q:"How do you manage distribution channels and execute sales planning?",
-   tip:"Explain route-to-market strategies, distributor relationship management, and aligning weekly/monthly targets.",
-   en:"Based on my extensive background in channel management, I focus on route-to-market efficiency, distributor alignment, and numeric distribution. I break down annual business goals into actionable monthly, weekly, and daily channel targets, closely monitoring coverage, strike rate, and drop size.",
-   my:"Channel Management အတွေ့အကြုံအရ Route-to-Market Efficiency၊ Distributor Alignment နဲ့ Numeric Distribution တွေကို အဓိကထား လုပ်ဆောင်ပါတယ်။ နှစ်ပတ်လည် ရည်မှန်းချက်တွေကို လစဉ်၊ ሳምንတ္စဥ် Target တွေအဖြစ် ခွဲဝေပြီး Coverage၊ Strike Rate နဲ့ Drop Size တွေကို စနစ်တကျ စောင့်ကြည့် အကောင်အထည်ဖော်ပါတယ်။"
+   q:"How do you design and execute a Route-to-Market (RTM) strategy for distributors?",
+   tip:"Explain outlet coverage mapping, sales rep journey planning, drop size optimization, and distributor alignment.",
+   en:"Designing an effective RTM strategy requires detailed territory mapping, outlet segmentation, and sales rep route optimization. I align closely with key distributors to set reorder thresholds, optimize visit frequencies based on outlet volume potential, and monitor key metrics like Numeric Distribution, Strike Rate, and Drop Size.",
+   my:"ထိရောက်တဲ့ RTM Strategy ရေးဆွဲဖို့အတွက် Territory Mapping၊ Outlet များကို အတန်းအစားခွဲခြားခြင်းနဲ့ Route Optimization တွေကို လုပ်ဆောင်ပါတယ်။ Distributor တွေနဲ့ ပူးပေါင်းပြီး Reorder Thresholds တွေ သတ်မှတ်ခြင်း၊ Outlet Potential ပေါ်မူတည်ပြီး သွားရောက်မည့် အကြိမ်ရေ သတ်မှတ်ခြင်းနှင့် Numeric Distribution, Strike Rate, Drop Size စတဲ့ Metrics တွေကို ငြီးငွေ့မရှိ စောင့်ကြည့်စစ်ဆေးပါတယ်။"
   }
  ],
  expansion:[
   {
-   q:"How do you approach market expansion and driving new territory growth?",
-   tip:"Discuss outlet mapping, identifying white spaces, distributor partnerships, and localized execution.",
-   en:"Market expansion requires rigorous outlet mapping, identifying untapped white spaces, and building strong local distributor partnerships. During my tenure, I analyzed regional potential, optimized sales routes, and rolled out targeted execution plans to ensure rapid yet sustainable product availability.",
-   my:"Market Expansion လုပ်တဲ့အခါ Outlet Mapping လုပ်ခြင်း၊ White Space တွေကို ရှာဖွေခြင်းနဲ့ ဒေသခံ Distributor တွေနဲ့ ခိုင်မာတဲ့ ပူးပေါင်းဆောင်ရွက်မှု တည်ဆောက်ခြင်းတို့ကို လုပ်ဆောင်ပါတယ်။ ဒေသတွင်း အလားအလာတွေကို စစ်ဆေးပြီး Sales Routes တွေကို ပြန်လည်ပြင်ဆင်ကာ ပစ္စည်းရောက်ရှိမှုကို အမြန်ဆုံးနဲ့ ထိရောက်စွာ ဖန်တီးပေးပါတယ်။"
+   q:"How do you approach market expansion into untapped territories or white spaces?",
+   tip:"Discuss market potential analysis, distributor selection, trade push vs consumer pull, and POSM execution.",
+   en:"Market expansion begins with rigorous white-space mapping and regional potential analysis. I identify suitable local distributor partners, establish clear credit and delivery terms, and execute a synchronized Trade Push and Merchandising campaign. During my tenure at Carlsberg, this structured approach expanded our direct retail coverage by 25%.",
+   my:"နယ်မြေအသစ် သို့မဟုတ် White Space တွေသို့ စျေးကွက်ချဲ့ထွင်တဲ့အခါ ဒေသတွင်း အလားအလာနဲ့ Outlet Potential များကို အရင်ဆုံး သုံးသပ်ပါတယ်။ ခိုင်မာတဲ့ Distributor များနှင့် မိတ်ဖက်ဖွဲ့ပြီး Trade Push နဲ့ POSM Merchandising များကို ဟန်ချက်ညီညီ လုပ်ဆောင်ပါတယ်။ ဒီနည်းလမ်းနဲ့ Carlsberg မှာ Direct Retail Coverage ကို ၂၅% အထိ တိုးတက်အောင် ဆောင်ရွက်နိုင်ခဲ့ပါတယ်။"
   }
  ],
  leadership:[
   {
-   q:"How do you set KPIs and manage underperforming sales teams?",
-   tip:"Talk about supportive field coaching, transparent KPI reviews, and root-cause problem solving.",
-   en:"I believe in transparent, KPI-driven management combined with active field coaching. When a salesperson underperforms, I analyze data gaps—whether in activity, strike rate, or coverage—accompany them on field visits to diagnose the root cause, and provide actionable coaching to secure recovery.",
-   my:"KPI အခြေပြု စီမံခန့်ခွဲမှုနဲ့အတူ Field Coaching ကို အဓိကထားပါတယ်။ Performance ကျဆင်းတဲ့အခါ Activity နဲ့ Coverage ဘက်မှာလားဆိုတာကို Data အရ သုံးသပ်ပြီး Field Visit အတူလိုက်ကာ အကြောင်းရင်းကို ရှာဖွေကာ ပြန်လည်တိုးတက်လာအောင် ကူညီပေးပါတယ်။"
+   q:"How do you set field KPIs and coach underperforming Sales Representatives?",
+   tip:"Focus on objective data tracking (Calls/Day, Strike Rate) combined with joint field visits and root-cause coaching.",
+   en:"I establish clear daily KPIs including Calls per Day, Effective Calls, and Strike Rate. When a rep underperforms, I analyze the data to isolate whether it is an activity issue or a skill gap. I then accompany them on field joint-visits to observe their sales pitch, provide construct feedback, and build their commercial confidence.",
+   my:"Sales Rep များအတွက် Calls per Day၊ Effective Calls နဲ့ Strike Rate စတဲ့ Daily KPIs များကို ရှင်းလင်းစွာ ချမှတ်ပါတယ်။ Performance လျော့နည်းတဲ့အခါ Data ကို ကြည့်ပြီး Activity ကြောင့်လား၊ Skill ကြောင့်လားဆိုတာ စစ်ဆေးကာ Field Joint-Visit အတူလိုက်ပါပြီး လိုအပ်တဲ့ Coaching နဲ့ Confidence ကို တည်ဆောက်ပေးပါတယ်။"
   }
  ],
  behavioral:[
   {
-   q:"Describe a time when you faced a major sales target shortfall. How did you resolve it?",
-   tip:"Use the STAR method (Situation, Task, Action, Result) focusing on tactical corrective measures.",
-   en:"In a previous quarter, shifting market conditions led to a temporary dip in target achievement. I immediately conducted a gap analysis by territory and sales channel, identified underperforming product lines and routes, and introduced an incentive-driven push with daily tracking. Within three weeks, we recovered the gap and achieved 105% of the quarterly objective.",
-   my:"တစ်ကြိမ်မှာ ဈေးကွက်အခြေအနေကြောင့် Target လျော့နည်းသွားတာမျိုး ကြုံဖူးပါတယ်။ ချက်ချင်းပဲ Territory နဲ့ Channel အလိုက် Gap Analysis လုပ်ခဲ့ပြီး အားနည်းနေတဲ့ Route တွေကို ဖော်ထုတ်ကာ Incentive အစီအစဉ်နဲ့ Daily Tracking ကို အကောင်အထည်ဖော်ခဲ့ပါတယ်။ သုံးပတ်အတွင်းမှာ Target ကို အမီလိုက်နိုင်ခဲ့ပြီး ရည်မှန်းချက်ရဲ့ ၁၀၅ ရာခိုင်နှုန်းအထိ ကျော်လွန်အောင် ဆောင်ရွက်နိုင်ခဲ့ပါတယ်။"
-  },
-  {
-   q:"How do you handle conflict or resistance from key distributors or team members?",
-   tip:"Emphasize active listening, mutual benefit negotiation, and collaborative problem-solving.",
-   en:"When dealing with distributor resistance or internal conflict, I prioritize active listening to understand their core concerns. I then focus on win-win solutions, aligning commercial goals with their business viability, and setting clear, transparent guidelines to move forward amicably.",
-   my:"Distributor တွေနဲ့ သို့မဟုတ် အသင်းသားတွေနဲ့ သဘောထားကွဲလွဲမှုဖြစ်တဲ့အခါ သူတို့ရဲ့ အဓိကအခက်အခဲကို အရင်ဆုံး သေချာနားထောင်ပါတယ်။ နှစ်ဖက်စလုံးအတွက် အကျိုးရှိမယ့် Win-Win Solution ကို ရှာဖွေဆွေးနွေးပြီး ရှင်းလင်းတဲ့ လမ်းညွှန်ချက်တွေနဲ့ အတူတကွ ပူးပေါင်းဆောင်ရွက်ပါတယ်။"
+   q:"Describe a time when market disruptions impacted your sales target. How did you handle it?",
+   tip:"Use the STAR method (Situation, Task, Action, Result) highlighting agile re-forecasting and channel pivot.",
+   en:"During a period of supply chain disruption, key outlets faced product shortages. I quickly re-prioritized high-velocity SKUs, re-allocated inventory to top-tier key accounts and high-volume wholesalers, and ran a short-term trade incentive push. As a result, we minimized revenue loss and secured 102% target completion for that quarter.",
+   my:"Supply Chain အခက်အခဲကြောင့် Product Shortage ကြုံရစဉ် High-velocity SKUs များကို ဦးစားပေးခွဲဝေခဲ့ပြီး High-volume Wholesalers နဲ့ Key Accounts များသို့ အဓိက ထောက်ပံ့ပေးခဲ့ပါတယ်။ ရှော့ထာမ် Trade Incentive များဖြင့် ရောင်းအားကို ထိန်းညှိခဲ့ရာ ထို Quarter တွင် Target ရဲ့ ၁၀၂% အထိ ထိန်းသိမ်းနိုင်ခဲ့ပါတယ်။"
   }
  ],
  salary:[
   {
-   q:"What are your salary expectations for this Sales Manager role?",
-   tip:"Anchor your expectation to your 11+ years of senior commercial management experience and market standards.",
-   en:"Based on my extensive 11+ years of leadership experience in channel management, sales planning, and driving major revenue growth, I am looking for a competitive package aligned with senior management roles in this industry. I am open to discussing a package that reflects the responsibilities and value I will bring to the company.",
-   my:"ကျွန်တော့်ရဲ့ ၁၁ နှစ်ကျော် သက်တမ်းရှိတဲ့ Senior Commercial Management နဲ့ Sales Leadership အတွေ့အကြုံ၊ လုပ်ငန်းတိုးတက်အောင် ဖန်တီးပေးနိုင်စွမ်းတို့အပေါ် မူတည်ပြီး ဒီလုပ်ငန်းနယ်ပယ်ရဲ့ Senior Management ရာထူးတွေအတွက် သင့်လျော်တဲ့ လစာနှုန်းထားကို မျှော်လင့်ထားပါတယ်။ ကုမ္ပဏီအတွက် ပေးအပ်မယ့် တာဝန်ဝတ္တရားတွေနဲ့ တန်ဖိုးပေါ်မူတည်ပြီး ဆွေးနွေးညှိနှိုင်းဖို့ အသင့်ရှိပါတယ်။"
-  },
-  {
-   q:"Do you have any questions for us?",
-   tip:"Always ask strategic business questions to show you are thinking like a manager.",
-   en:"Yes. I would love to know what the current primary growth bottleneck is for your sales channels, and what success looks like for the person taking on this role in the first 90 days.",
-   my:"ဟုတ်ကဲ့ မေးစရာရှိပါတယ်။ လက်ရှိ Sales Channels တွေအတွက် အဓိက ရင်ဆိုင်နေရတဲ့ Growth Bottleneck က ဘာတွေလဲဆိုတာနဲ့ ဒီရာထူးကို လက်ခံမယ့်သူအတွက် ပထမ ရက် ၉၀ အတွင်း ဘယ်လိုရလဒ်မျိုးကို အောင်မြင်မှုလို့ သတ်မှတ်ထားလဲဆိုတာ သိချင်ပါတယ်။"
+   q:"What are your salary expectations for an Area Sales Manager position?",
+   tip:"Anchor your expectation to your 15+ years of senior commercial experience, RTM leadership, and proven track record.",
+   en:"With over 15 years of comprehensive sales leadership experience—including 11 years managing channel strategy at Myanmar Carlsberg—I bring proven ability to drive rapid market expansion and revenue growth. My salary expectation is aligned with market rates for senior commercial leadership, and I am open to discussing a competitive compensation package that reflects the responsibilities and business goals.",
+   my:"ကျွန်တော့်ရဲ့ ၁၅ နှစ်ကျော် Commercial & Sales Leadership အတွေ့အကြုံ (Myanmar Carlsberg ၌ ၁၁ နှစ်တာ Channel Strategy စီမံခဲ့မှု) နှင့် ရလဒ်ကောင်းများပေါ် မူတည်ပြီး ဒီနယ်ပယ်ရဲ့ Senior Management ရာထူးများအတွက် သင့်လျော်သော လစာနှုန်းထားကို မျှော်လင့်ပါသည်။ ပေးအပ်မည့် တာဝန်နှင့် ကုမ္ပဏီ၏ ရည်မှန်းချက်များပေါ် မူတည်၍ ညှိနှိုင်းဆွေးနွေးရန် အသင့်ရှိပါသည်။"
   }
  ]
 };
