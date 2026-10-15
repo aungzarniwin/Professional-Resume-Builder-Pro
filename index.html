@@ -123,14 +123,15 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
     <button class="btn" onclick="toggleDarkMode()">🌓 Dark Mode</button>
     <button class="btn" onclick="newResume()">New</button>
     <button class="btn" onclick="saveResume()">Save</button>
-    <button class="btn primary" onclick="exportPDF()">📥 Download PDF</button>
+    <button class="btn primary" onclick="downloadPDFFile()">📥 Download PDF</button>
     <button class="btn dark" onclick="exportWord()">📄 Download Word</button>
+    <button class="btn" onclick="window.print()">🖨️ Print</button>
   </div>
 </header>
 
 <section class="hero">
   <h1>Build your next career move.</h1>
-  <p>Create a professional resume, upload CVs, generate cover letters, and prepare for interviews using your actual career experience.</p>
+  <p>Create a professional resume, upload CVs, generate cover letters, and download or print directly.</p>
 </section>
 
 <nav class="tabs">
@@ -262,8 +263,9 @@ footer{text-align:center;padding:22px;color:var(--muted);font-size:11px}
   <div class="panel-head">
     <h2>Live Resume Preview</h2>
     <div style="display:flex; gap:6px;">
-      <button class="btn primary" onclick="exportPDF()">PDF</button>
-      <button class="btn dark" onclick="exportWord()">Word</button>
+      <button class="btn primary" onclick="downloadPDFFile()">Download PDF</button>
+      <button class="btn dark" onclick="exportWord()">Download Word</button>
+      <button class="btn" onclick="window.print()">Print</button>
     </div>
   </div>
   <div class="preview-wrap">
@@ -587,8 +589,13 @@ function exportJSON(){
  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 
-function exportPDF(){ window.print(); }
+// Download PDF File action (triggers print with advice/alert for direct PDF save)
+function downloadPDFFile(){
+ alert("ဒေါင်းလုဒ်လုပ်ရန် Printer ပွင့်လာပါက Destination တွင် 'Save as PDF' ကို ရွေးချယ်ပြီး ဒေါင်းလုဒ်ဆွဲပါ။");
+ window.print();
+}
 
+// Download Word (.docx)
 function exportWord(){
  const content = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Resume</title></head><body>` + $("#resumeContent").innerHTML + `</body></html>`;
  const converted = htmlDocx.asBlob(content);
@@ -645,6 +652,7 @@ function showPage(page){
  $("#interviewPage").classList.toggle("hidden",!isInterview);
 
  $("#tabResume").classList.toggle("active",isResume);
+ $("#tabCover","active",isCover);
  $("#tabCover").classList.toggle("active",isCover);
  $("#tabInterview").classList.toggle("active",!isInterview);
  window.scrollTo({top:0,behavior:"smooth"});
